@@ -95,7 +95,80 @@
 <td>2.0.0</td>
 </tr>
 </tbody></table>
-</article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
+<h2 id="4-npx">4. npx</h2>
+<p><code>npm</code> &#xC740; &#xD328;&#xD0A4;&#xC9C0;&#xB97C; &#xB85C;&#xCEEC;&#xC774;&#xB4E0; &#xC11C;&#xBC84;&#xB4E0; &#xC5B4;&#xB5A0;&#xD55C; &#xC800;&#xC7A5;&#xC18C;&#xC5D0; &#xC9C1;&#xC811; &#xC124;&#xCE58;&#xAC00; &#xB418;&#xB294; &#xBC29;&#xC2DD;&#xC778; &#xBC18;&#xBA74; <code>npx</code> &#xB294; &#xC800;&#xC7A5;&#xD558;&#xACE0; &#xC2E4;&#xD589;&#xD558;&#xB294; &#xAC83;&#xC774; &#xBAA9;&#xC801;&#xC774; &#xC544;&#xB2C8;&#xB77C; 1&#xD68C;&#xC131;&#xC73C;&#xB85C; &#xC5B4;&#xB5A0;&#xD55C; &#xD328;&#xD0A4;&#xC9C0;&#xAC00; &#xC0AC;&#xC6A9;&#xC790;&#xAC00; &#xC791;&#xC131;&#xD55C; &#xCF54;&#xB4DC;&#xC5D0;&#xC11C; &#xC5B4;&#xB5BB;&#xAC8C; &#xC791;&#xB3D9;&#xD558;&#xB294;&#xC9C0; &#xD655;&#xC778;&#xD558;&#xACE0; &#xC2F6;&#xC744; &#xB54C; &#xC0AC;&#xC6A9;&#xD55C;&#xB2E4;. &#xBC11;&#xC758; &#xC18C;&#xC2A4;&#xCC3D;&#xC744; &#xBCF4;&#xC790;</p>
+<p><strong>[Terminal-npx &#xC2E4;&#xD589;]</strong></p>
+<pre><code>npx cowsay &quot;hi?&quot;</code></pre><p><strong>[&#xC2E4;&#xD589;&#xCC3D;]</strong>
+<img src="./imgFolder/nodejsIMG2.png" alt="npx &#xC2E4;&#xD589;"></p>
+<p><strong>[Terminal-npm &#xC2E4;&#xD589;]</strong></p>
+<pre><code>npm install cowsay --s</code></pre><p><strong>[&#xC2E4;&#xD589;&#xCC3D;]</strong>
+<img src="./imgFolder/nodejsIMG3.png" alt="npx &#xC2E4;&#xD589;">\</p>
+<p>&#xC704;&#xC758; <code>npx</code> &#xB97C; &#xC2E4;&#xD589;&#xD588;&#xC744; &#xB54C; <code>package.json</code> &#xD30C;&#xC77C;&#xC5D0;&#xC11C; <code>cowsay</code> &#xB77C;&#xB294; &#xD328;&#xD0A4;&#xC9C0;&#xAC00; &#xC124;&#xCE58;&#xB418;&#xC9C0; &#xC54A;&#xC558;&#xC74C;&#xC744; &#xBCFC; &#xC218; &#xC788;&#xB2E4;. &#xC774;&#xB7F0;&#xC2DD;&#xC73C;&#xB85C; &#xC18C;&#xC2A4;&#xB97C; &#xC791;&#xC131;&#xD558;&#xB358; &#xB3C4;&#xC911; &#xB9CC;&#xC57D; &#xC5B4;&#xB5A0;&#xD55C; package &#xB97C; &#xC124;&#xCE58;&#xD558;&#xACE0; &#xC0AC;&#xC6A9;&#xD588;&#xC744; &#xB54C; &#xC5B4;&#xB5BB;&#xAC8C; &#xB418;&#xB294;&#xC9C0; <strong>&#xC784;&#xC2DC;&#xB85C; &#xD655;&#xC778;</strong>&#xD558;&#xB294; &#xAC83;&#xC774; npx &#xC758; &#xC7A5;&#xC810;&#xC774;&#xB2E4;.</p>
+<h2 id="5-nodemon">5. nodemon</h2>
+<p><code>nodemon</code> &#xC740; &#xD30C;&#xC77C;&#xC5D0; &#xBCC0;&#xD654;&#xAC8C; &#xC0DD;&#xAE30;&#xBA74; &#xADF8; &#xD30C;&#xC77C;&#xC744; &#xAC10;&#xC9C0;&#xB97C; &#xD574;&#xC11C; &#xBC14;&#xB85C; &#xC2E4;&#xD589;&#xC744; &#xD558;&#xAC8C; &#xB41C;&#xB2E4;. &#xBCC0;&#xD654;&#xB97C; &#xBC14;&#xB85C;&#xBC14;&#xB85C; &#xC801;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xAC8C; &#xD574; &#xC8FC;&#xB294; &#xD328;&#xD0A4;&#xC9C0;&#xC774;&#xB2E4;.</p>
+<p><strong>[&#xC124;&#xCE58;]</strong></p>
+<pre><code>npm install --s</code></pre><h2 id="5-data-structure-for-event-loop">5.Data Structure for Event Loop</h2>
+<ol>
+<li>Queue : First in First out, &#xC120;&#xC785;&#xC120;&#xCD9C;</li>
+</ol>
+<p><strong>[SOURCE]</strong></p>
+<pre><code class="language-javascript">const queue = [];
+queue.push(1);
+queue.push(2);
+queue.push(225)
+console.log(`queue before pop : [${queue}]`);
+
+const r = queue.shift();
+console.log(`queue poped: [${queue}]`);
+console.log(`delete &#xB41C; &#xAC12; : ${r}`);</code></pre>
+<p><strong>[CONSOLE]</strong></p>
+<pre><code>queue before pop : [1,2,225]
+queue poped: [2,225]
+delete &#xB41C; &#xAC12; : 1</code></pre><p>&#xD050;&#xB294; &#xC704;&#xC758; &#xC18C;&#xC2A4;&#xC5D0;&#xC11C; &#xBCFC; &#xC218; &#xC788;&#xB4EF;&#xC774; shift&#xB85C; &#xAD6C;&#xD604;&#xD560; &#xC218; &#xC788;&#xB2E4;. &#xD5F7;&#xAC08;&#xB9B0;&#xB2E4;&#xBA74; <a href="https://github.com/jeahun10717/javascriptStudy/blob/master/javascriptStudyByDRCD/javascriptByDRCD3.md#4-%EB%B0%B0%EC%97%B4%EC%9D%98-%EC%B6%94%EA%B0%80-%EC%82%AD%EC%A0%9C-_-addition-deletion">&#xC774; &#xB9C1;&#xD06C;</a> &#xB97C; &#xCC38;&#xC870;&#xD558;&#xB77C;.</p>
+<ol start="2">
+<li>Stack : First in Last out, &#xC120;&#xC785;&#xD6C4;&#xCD9C;</li>
+</ol>
+<pre><code class="language-javascript">const stack = [];
+stack.push(1);
+stack.push(2);
+stack.push(225)
+console.log(`stack before pop : [${stack}]`);
+
+const r = stack.shift();
+console.log(`stack poped: [${stack}]`);
+console.log(`delete &#xB41C; &#xAC12; : ${r}`);</code></pre>
+<p><strong>[CONSOLE]</strong></p>
+<pre><code>stack before pop : [1,2,225]
+stack poped: [1,2]
+delete &#xB41C; &#xAC12; : 225</code></pre><p>&#xC2A4;&#xD0DD;&#xC740; &#xC704;&#xC758; &#xC18C;&#xC2A4;&#xC5D0;&#xC11C; &#xBCFC; &#xC218; &#xC788;&#xB4EF;&#xC774; pop &#xC73C;&#xB85C; &#xAD6C;&#xD604;&#xD560; &#xC218; &#xC788;&#xB2E4;. &#xD050;&#xC640; &#xB9C8;&#xCC2C;&#xAC00;&#xC9C0;&#xB85C; &#xD5F7;&#xAC08;&#xB9B0;&#xB2E4;&#xBA74; <a href="https://github.com/jeahun10717/javascriptStudy/blob/master/javascriptStudyByDRCD/javascriptByDRCD3.md#4-%EB%B0%B0%EC%97%B4%EC%9D%98-%EC%B6%94%EA%B0%80-%EC%82%AD%EC%A0%9C-_-addition-deletion">&#xC774; &#xB9C1;&#xD06C;</a>&#xB97C; &#xCC38;&#xC870;&#xD558;&#xB77C;.</p>
+<h2 id="6-every">6. every</h2>
+<p><code>every</code> &#xB294; &#xBC30;&#xC5F4;&#xC5D0;&#xC11C; &#xADF8; &#xC548;&#xC758; &#xBAA8;&#xB4E0; &#xC694;&#xC18C;&#xAC00; &#xD2B9;&#xC815;&#xC870;&#xAC74;&#xC744; &#xB9CC;&#xC871;&#xD558;&#xBA74; <code>true</code>, &#xB9CC;&#xC871;&#xD558;&#xC9C0; &#xBABB;&#xD558;&#xBA74; <code>false</code> &#xB97C; &#xBC18;&#xD658;&#xD55C;&#xB2E4;. &#xC774; <code>every</code> &#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xAC8C; &#xB418;&#xBA74; &#xAE30;&#xC874;&#xC758; &#xBC30;&#xC5F4;&#xC744; &#xAC80;&#xC0AC;&#xD558;&#xAE30; &#xC704;&#xD574;&#xC11C;&#xB294; &#xBAA8;&#xB450; &#xC21C;&#xD68C;&#xB97C; &#xD574;&#xC57C; &#xD558;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; for &#xC640; if &#xB97C; &#xC0AC;&#xC6A9;&#xD574;&#xC11C; &#xC54C;&#xC544;&#xB0B4;&#xC57C; &#xD558;&#xB294; &#xB2E8;&#xC810;&#xC744; &#xC5C6;&#xC574; &#xC218; &#xC788;&#xB2E4;.</p>
+<p><strong>[SOURCE]</strong></p>
+<pre><code class="language-javascript">const arr = [2, 3, 4]
+
+const isBiggerthenOne = arr.every(key =&gt; key &gt; 1)
+const isBiggerthenTwo = arr.every(key =&gt; key &gt; 2)
+
+console.log(isBiggerthenOne);
+console.log(isBiggerthenTwo);</code></pre>
+<p><strong>[CONSOLE]</strong></p>
+<pre><code>true
+false</code></pre><h2 id="7-find-includes">7. Find, includes</h2>
+<ol>
+<li>Find : &#xBC30;&#xC5F4;&#xC5D0;&#xC11C; &#xD2B9;&#xC815;&#xD55C; element &#xB97C; &#xCC3E;&#xC73C;&#xBA74; &#xCC3E;&#xC740; &#xAC12;&#xC744; return, &#xCC3E;&#xC9C0; &#xBABB;&#xD558;&#xBA74; undefined &#xB97C; return &#xD55C;&#xB2E4;.</li>
+<li>includes : &#xBC30;&#xC5F4;&#xC5D0;&#xC11C; &#xD2B9;&#xC815;&#xD55C; elemnet &#xB97C; &#xCC3E;&#xC73C;&#xBA74; true, &#xCC3E;&#xC9C0; &#xBABB;&#xD558;&#xBA74; false &#xB97C; retrun &#xD55C;&#xB2E4;.</li>
+</ol>
+<p><strong>[SOURCE]</strong></p>
+<pre><code class="language-javascript">const arr = [&apos;nodejs&apos;, &apos;all in one&apos;]
+
+const ret = arr.find(key=&gt;key===&apos;all in one&apos;)
+const res = arr.includes(&apos;nodejs&apos;)
+
+console.log(ret);
+console.log(res);</code></pre>
+<p><strong>[CONSOLE]</strong></p>
+<pre><code>all in one
+true</code></pre></article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>
 </div>

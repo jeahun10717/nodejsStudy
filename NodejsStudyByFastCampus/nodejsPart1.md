@@ -58,3 +58,134 @@ Sementic versioning 은 npm 에서 제공하는 버전관리 규약이다. 주�
 |Backword compatible bug fixes|Patch release|Increment the third digit|1.0.1|
 |Backword compatible new features|Minor release|Increment the middle digit and reset last digit to zero|1.1.0|
 |Changs that break backward compatibility|Major release|Increment the first digit and reset middle and last digits to zero|2.0.0|
+
+## 4. npx
+
+`npm` 은 패키지를 로컬이든 서버든 어떠한 저장소에 직접 설치가 되는 방식인 반면 `npx` 는 저장하고 실행하는 것이 목적이 아니라 1회성으로 어떠한 패키지가 사용자가 작성한 코드에서 어떻게 작동하는지 확인하고 싶을 때 사용한다. 밑의 소스창을 보자
+
+**[Terminal-npx 실행]**
+```
+npx cowsay "hi?"
+```
+
+**[실행창]**
+![npx 실행](./imgFolder/nodejsIMG2.png)
+
+**[Terminal-npm 실행]**
+```
+npm install cowsay --s
+```
+
+**[실행창]**
+![npx 실행](./imgFolder/nodejsIMG3.png)\
+
+위의 `npx` 를 실행했을 때 `package.json` 파일에서 `cowsay` 라는 패키지가 설치되지 않았음을 볼 수 있다. 이런식으로 소스를 작성하던 도중 만약 어떠한 package 를 설치하고 사용했을 때 어떻게 되는지 **임시로 확인**하는 것이 npx 의 장점이다.
+
+## 5. nodemon
+
+`nodemon` 은 파일에 변화게 생기면 그 파일을 감지를 해서 바로 실행을 하게 된다. 변화를 바로바로 적용할 수 있게 해 주는 패키지이다.
+
+**[설치]**
+```
+npm install --s
+```
+
+## 5.Data Structure for Event Loop
+
+1.  Queue : First in First out, 선입선출
+
+**[SOURCE]**
+
+```javascript
+const queue = [];
+queue.push(1);
+queue.push(2);
+queue.push(225)
+console.log(`queue before pop : [${queue}]`);
+
+const r = queue.shift();
+console.log(`queue poped: [${queue}]`);
+console.log(`delete 된 값 : ${r}`);
+```
+
+**[CONSOLE]**
+
+```
+queue before pop : [1,2,225]
+queue poped: [2,225]
+delete 된 값 : 1
+```
+
+
+큐는 위의 소스에서 볼 수 있듯이 shift로 구현할 수 있다. 헷갈린다면 [이 링크](https://github.com/jeahun10717/javascriptStudy/blob/master/javascriptStudyByDRCD/javascriptByDRCD3.md#4-%EB%B0%B0%EC%97%B4%EC%9D%98-%EC%B6%94%EA%B0%80-%EC%82%AD%EC%A0%9C-_-addition-deletion) 를 참조하라.
+
+2. Stack : First in Last out, 선입후출
+
+```javascript
+const stack = [];
+stack.push(1);
+stack.push(2);
+stack.push(225)
+console.log(`stack before pop : [${stack}]`);
+
+const r = stack.shift();
+console.log(`stack poped: [${stack}]`);
+console.log(`delete 된 값 : ${r}`);
+```
+
+**[CONSOLE]**
+
+```
+stack before pop : [1,2,225]
+stack poped: [1,2]
+delete 된 값 : 225
+```
+
+스택은 위의 소스에서 볼 수 있듯이 pop 으로 구현할 수 있다. 큐와 마찬가지로 헷갈린다면 [이 링크](https://github.com/jeahun10717/javascriptStudy/blob/master/javascriptStudyByDRCD/javascriptByDRCD3.md#4-%EB%B0%B0%EC%97%B4%EC%9D%98-%EC%B6%94%EA%B0%80-%EC%82%AD%EC%A0%9C-_-addition-deletion)를 참조하라.
+
+## 6. every
+
+`every` 는 배열에서 그 안의 모든 요소가 특정조건을 만족하면 `true`, 만족하지 못하면 `false` 를 반환한다. 이 `every` 를 사용하게 되면 기존의 배열을 검사하기 위해서는 모두 순회를 해야 하기 때문에 for 와 if 를 사용해서 알아내야 하는 단점을 없앴 수 있다.
+
+**[SOURCE]**
+
+```javascript
+const arr = [2, 3, 4]
+
+const isBiggerthenOne = arr.every(key => key > 1)
+const isBiggerthenTwo = arr.every(key => key > 2)
+
+console.log(isBiggerthenOne);
+console.log(isBiggerthenTwo);
+```
+
+**[CONSOLE]**
+
+```
+true
+false
+```
+
+## 7. Find, includes
+
+1. Find : 배열에서 특정한 element 를 찾으면 찾은 값을 return, 찾지 못하면 undefined 를 return 한다.
+2. includes : 배열에서 특정한 elemnet 를 찾으면 true, 찾지 못하면 false 를 retrun 한다.
+
+**[SOURCE]**
+
+```javascript
+const arr = ['nodejs', 'all in one']
+
+const ret = arr.find(key=>key==='all in one')
+const res = arr.includes('nodejs')
+
+console.log(ret);
+console.log(res);
+```
+
+**[CONSOLE]**
+
+```
+all in one
+true
+```
