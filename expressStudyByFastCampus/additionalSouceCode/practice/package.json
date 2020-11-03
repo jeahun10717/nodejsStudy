@@ -4,7 +4,7 @@
   "description": "express 연습",
   "main": "index.js",
   "scripts": {
-    "start" : "supervisor index.js"
+    "ssup" : "supervisor index.js"
   },
   "author": "jeahun",
   "license": "ISC",

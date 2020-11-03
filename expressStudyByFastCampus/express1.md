@@ -90,7 +90,7 @@ nodemon 파일명
   "description": "express 연습",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "supervisor index.js"  
   },
   "author": "jeahun",
