@@ -120,3 +120,99 @@ Parent process exiting, terminating child...
 ```
 
 CONSOLE 창에서 볼 수 있듯 정상적으로 작동한다.
+
+
+### 2. router
+
+웹페이지의 복잡도가 지나치게 올라가면 수정이나 보완이 힘들다. 이러한 유지보수성을 올리기 위해 라우터를 사용하여 소스의 복잡도를 낮출 수 있다.
+
+* 밑의 도표를 코딩한다고 가정하고 라우터를 쓰지 않는 코드와 라우터를 쓰는 코드를 비교해보자.
+
+![라우터 x 코딩](./imgFolder/expressStudyIMG2.png)
+
+#### 1. none Routes coding
+
+**[SOURCE_noneRoutes]**
+
+```javascript
+const express = require('express');
+const app = express();
+const port = 3300;
+
+app.get('/', (req, res)=>{
+    res.send('this is main page')
+})
+
+app.get('/contact', (req, res)=>{
+    res.send('url : localhost:3300/contact')
+})
+
+app.get('/producer',(req, res)=>{
+    res.send('url : localhost:3300/producer')
+})
+
+app.get('/contact/list', (req, res)=>{
+    res.send('url : localhost:3300/contact/list')
+})
+
+app.listen(port, ()=>{
+    console.log('Express listening on port', port);
+})
+```
+#### 2. use Routes coding
+**파일 구조**
+![라우터 쓰는 코딩](./imgFolder/expressStudyIMG3.png)
+
+**[SOURCE_index.js]**
+
+```javascript
+const express = require('express');//express 모듈 사용
+
+const contact = require('./contactRoutes/contact')//contact.js 소스가져옴
+const producer = require('./producerRoutes/producer')//producer.js 소스가져옴
+
+const app = express();
+const port = 3300;
+
+app.get('/', (req, res)=>{//메인페이지
+    res.send('this is main page')
+})
+
+app.use('/contact', contact)//contact.js 소스 사용함
+app.use('/producer', producer)//producer.js 소스 사용함
+
+app.listen(port, ()=>{
+    console.log('Express listening on port', port);
+})
+```
+
+**[SOURCE_contact.js]**
+
+```javascript
+const express = require('express');//express 모듈 사용
+const routerOfContact = express.Router();//express 모듈의 router 사용
+
+routerOfContact.get('/', (req, res)=>{
+    res.send('URL : localhost:3300/contact');
+});
+
+routerOfContact.get('/list', (req, res)=>{
+    res.send('URL : localhost:3300/contact/list');
+});
+
+module.exports = routerOfContact;
+//module.exports 를 통해 routerOfContact 를 내보냄
+```
+
+**[SOURCE_producer.js]**
+
+```javascript
+const express = require('express');
+const routerOfProducer = express.Router();
+
+routerOfProducer.get('/', (req, res)=>{
+    res.send('URL : localhost:3300/producer');
+});
+
+module.exports = routerOfProducer;
+```
