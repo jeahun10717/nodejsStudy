@@ -6,7 +6,11 @@ routerOfContact.get('/', (req, res)=>{
 });
 
 routerOfContact.get('/list', (req, res)=>{
-    res.send('URL : localhost:3300/contact/list');
+    // res.send('URL : localhost:3300/contact/list');
+    res.render('contact/list.html',{
+        message:'hello!!!!!!!!!!!!!!',
+        online : 'express'
+    })
 });
 
 module.exports = routerOfContact;
