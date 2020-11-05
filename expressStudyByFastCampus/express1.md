@@ -1,17 +1,17 @@
 # Node.js Express study part1
 ## [express 강의 참고링크](https://github.com/parkjunyoung/express-online)
 
-## 1. Express 시작
+## Express 시작
 
-### 1. Express를 사용하는 이유
+## 1. Express를 사용하는 이유
 
 ![request, response](./imgFolder/expressStudyIMG1.png)
 
-웹서버에서 사용자는 서버에게 요청을 하고 그 요청에 대한 답을 서버는 사용자에게 제공한다. 이러한 요청과 반응의 소스를 만들주는 것을 프레임워크라 한다. 여러가지의 프레임워크가 존재하는데 우리는 express 에 대해 알아볼 것이다.
+웹서버에서 사용자는 서버에게 요청을 하고 그 요청에 대한 답을 서버는 사용자에게 제공한다. 이러한 요청과 반응의 소스를 만들주는 것을 프레임워크라 한다. 여러가지의 프레임워크가 존재하는데 우리는 express 에 대해 알아볼 것이다. express 는 기존의 사용자가 많아 관련된 자료가 많고 코드 작성을 줄여주는 유용한 api 들이 많기 때문에 사용하기 편하다.
 
-### 2. 서버 만들어 보기
+## 2. 서버 만들어 보기
 
-#### 1. express 가 아닐 경우
+### 1. express 가 아닐 경우
 
 ```javascript
 const http = require('http');
@@ -33,7 +33,7 @@ http.createServer((request, response)=>{
 |4XX|요청오류(ex 404 Not Found)|
 |5XX|서버오류|
 
-#### 2. express 로 서버를 띄울 경우
+### 2. express 로 서버를 띄울 경우
 
 **[SOURCE]**
 
@@ -122,7 +122,7 @@ Parent process exiting, terminating child...
 CONSOLE 창에서 볼 수 있듯 정상적으로 작동한다.
 
 
-### 2. router
+## 2. router
 
 웹페이지의 복잡도가 지나치게 올라가면 수정이나 보완이 힘들다. 이러한 유지보수성을 올리기 위해 라우터를 사용하여 소스의 복잡도를 낮출 수 있다.
 
@@ -130,7 +130,7 @@ CONSOLE 창에서 볼 수 있듯 정상적으로 작동한다.
 
 ![라우터 x 코딩](./imgFolder/expressStudyIMG2.png)
 
-#### 1. none Routes coding
+### 1. none Routes coding
 
 **[SOURCE_noneRoutes]**
 
@@ -159,7 +159,7 @@ app.listen(port, ()=>{
     console.log('Express listening on port', port);
 })
 ```
-#### 2. use Routes coding
+### 2. use Routes coding
 **파일 구조**
 ![라우터 쓰는 코딩](./imgFolder/expressStudyIMG3.png)
 
@@ -215,4 +215,28 @@ routerOfProducer.get('/', (req, res)=>{
 });
 
 module.exports = routerOfProducer;
+```
+
+## 3. view engine
+
+view engine 은 기존의 html 을 보조하는 수단으로 나온 엔진이다. 여러가지 엔진이 존재하는데 여기서는 nunjucks 에 대해 알아볼 것이다.
+
+### 1. 설치
+
+```
+npm install nunjucks --s
+```
+
+### 2. 사용법
+
+```javascript
+const 변수1 = require('nunjucks')
+
+nunjucks.configure('views'/*1번*/, {
+  autoescape : true,//2번
+  express : app//3번
+})
+//1번 : 문자열 안에 들어가는 문자열은 view 파일이 들어가는 폴더명이다.
+//2번 : autoescape 는 보안을 위해 작성한다 후에 설명하겠다.
+//3번 : express : app 에서 app 은 express 모듈이 저장되어 있는 변수이다.
 ```
