@@ -20,13 +20,18 @@ const app = express
 ---
 ## QUESTION_3
 
-![질문용 이미지](./imgFolder/expressStudyIMG4.png)
+![질문용 이미지1](./imgFolder/expressStudyIMG5.png)
 
-위 구조를 각각의 다중 라우터로 작성. 왜 안됨?
+위와 같은 구조를 코딩 했는데([링크](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode/2_routes_homework)) 라우터를 여러번 사용하여 아래와 같은 구조로 가능?
 
+![질문용 이미지2](./imgFolder/expressStudyIMG6.png)
 ## ANSWER_3
 ---
 ## QUESTION_4
+
+![질문용 이미지](./imgFolder/expressStudyIMG4.png)
+
+위 구조를 각각의 다중 라우터로 작성([링크](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode/3_viewEngine_prac)). 왜 안됨?
 
 ## ANSWER_4
 ---
