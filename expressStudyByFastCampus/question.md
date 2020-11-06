@@ -35,3 +35,9 @@ const app = express
 
 ## ANSWER_4
 ---
+## QUESTION_4
+
+DOM 구조란?
+
+## ANSWER_4
+---

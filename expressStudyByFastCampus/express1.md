@@ -229,6 +229,8 @@ npm install nunjucks --s
 
 ### 2. 사용법
 
+**[SOURCE_mainJSFile]**
+
 ```javascript
 const 변수1 = require('nunjucks')
 
@@ -239,4 +241,15 @@ nunjucks.configure('views'/*1번*/, {
 //1번 : 문자열 안에 들어가는 문자열은 view 파일이 들어가는 폴더명이다.
 //2번 : autoescape 는 보안을 위해 작성한다 후에 설명하겠다.
 //3번 : express : app 에서 app 은 express 모듈이 저장되어 있는 변수이다.
+```
+
+**[SOURCE_adminPageJSfile]**
+
+```javascript
+router.get('/', (req, res)=>{
+    // res.send('this is producer page')
+    res.render('admin/admin.html',{// 탬플릿 html 파일 경로 접근
+        message : 'hello? hi?'
+    })
+})
 ```
