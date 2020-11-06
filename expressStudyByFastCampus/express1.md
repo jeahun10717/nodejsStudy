@@ -219,15 +219,16 @@ module.exports = routerOfProducer;
 
 ## 3. view engine
 
-view engine 은 기존의 html 을 보조하는 수단으로 나온 엔진이다. 여러가지 엔진이 존재하는데 여기서는 nunjucks 에 대해 알아볼 것이다.
+view engine 은 기존의 html 을 보조하는 수단으로 나온 엔진이다. 여러가지 엔진이 존재하는데 여기서는 nunjucks 에 대해 알아볼 것이다. 탬블릿 엔진을 사용해야 하는 자세한 이유는 [이 링크](https://insight-bgh.tistory.com/252) 를 참고하라
+### 1. nunjucks
 
-### 1. 설치
+#### 1. 설치
 
 ```
 npm install nunjucks --s
 ```
 
-### 2. 사용법
+#### 2. 사용법
 
 **[SOURCE_mainJSFile]**
 
@@ -253,3 +254,86 @@ router.get('/', (req, res)=>{
     })
 })
 ```
+
+### 2. pug
+
+#### 1. 설치
+
+```
+npm install pug -s
+```
+
+#### 2. 사용법
+
+**[파일구조]**
+```
+views
+    main.pug
+index.js
+```
+
+**[SOURCE-index.js]**
+
+```javascript
+const express = require('express');
+
+const app = express();
+const port = 2000;
+
+app.set('view engine', 'pug')//view engine 을 pug 로 한다.
+app.set('views', './views')//view 파일들의 경로를 지정한다.
+
+app.get('/', (req,res)=>{
+    res.render('main')// set 으로 설정된 파일중 main 파일을 렌더링한다.
+})
+app.listen(port, ()=>{
+    console.log('express listening on port', port);
+})
+```
+
+**[SOURCE-main.pug]**
+
+```pug
+html
+    head
+    body
+        #background(style = "width : 300px; height : 300px; background-color : black")
+```
+
+### 3. 탬플릿 상속
+
+먼저 이전의 소스에서 `autoescape : true` 를 하는 이유에 대해 알아보자.
+
+소스 파일은 [이 링크]()에 있다. 여기 있는 파일 중 `index.js` 에 `autoescape` 에 관련된 소스가 있다. 이 `index.js` 부분에서 `autoescape` 부분만 보자. 그리고 `coontactRoutes` 폴더에 `contact.js` 를 보자.
+
+**[SOURCE-index.js]**
+
+```javascript
+nunjucks.configure('views', {
+    autoescape : true,
+    express : app
+})
+```
+
+**[SOURCE-contact.js]**
+
+```javascript
+routerOfContact.get('/list', (req, res)=>{
+    // res.send('URL : localhost:3300/contact/list');
+    res.render('contact/list.html',{
+        message:`<h1>h1 태그가 출력됩니다</h1>`,
+        online : 'express'
+    })
+});
+```
+
+autoescape 상태에 따른 localhost:3300/contact/list 의 화면을 보자
+**[autoescape : true]**
+![autoescape : true](./imgFolder/expressStudyIMG7.png)
+
+**[autoescape : false]**
+![autoescape : false](./imgFolder/expressStudyIMG8.png)
+
+`autoescape : true` 일 때는 `message` 에 저장되어 있는 문자열이 문자열 그대로 들어간다. 하지만 `autoescape : false` 일 때는 `message` 에 저장되어 있는 문자열이 html 태그로 인식되어 이식된다. 즉 서버에서 받아오는 정보나 클라이언트가 던져주는 정보에 소스에 영향을 주지 않도록 해 주는 기능이 `autoescape` 이다.
+
+`pug 탬플릿 상속 공부하고 넘어가기`
