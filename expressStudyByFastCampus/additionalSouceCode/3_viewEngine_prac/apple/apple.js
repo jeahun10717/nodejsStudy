@@ -2,9 +2,8 @@
 const express = require('express');
 const ipad = require('./ipad/ipad')
 const routerOfApple = express.Router();
-const app = express();
 
-app.use('/ipad', ipad);
+routerOfApple.use('/ipad', ipad);
 
 routerOfApple.get('/', (req, res)=>{
     res.send('this is `apple` page')
