@@ -160,6 +160,7 @@ app.listen(port, ()=>{
 })
 ```
 ### 2. use Routes coding
+
 **파일 구조**
 ![라우터 쓰는 코딩](./imgFolder/expressStudyIMG3.png)
 
@@ -216,6 +217,10 @@ routerOfProducer.get('/', (req, res)=>{
 
 module.exports = routerOfProducer;
 ```
+
+### 3. multy routing Source
+
+
 
 ## 3. view engine
 
@@ -328,6 +333,7 @@ routerOfContact.get('/list', (req, res)=>{
 ```
 
 autoescape 상태에 따른 localhost:3300/contact/list 의 화면을 보자
+
 **[autoescape : true]**
 ![autoescape : true](./imgFolder/expressStudyIMG7.png)
 

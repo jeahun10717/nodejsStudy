@@ -194,10 +194,12 @@ routerOfProducer.get(&apos;/&apos;, (req, res)=&gt;{
 });
 
 module.exports = routerOfProducer;</code></pre>
+<h3 id="3-multy-routing-source">3. multy routing Source</h3>
 <h2 id="3-view-engine">3. view engine</h2>
-<p>view engine &#xC740; &#xAE30;&#xC874;&#xC758; html &#xC744; &#xBCF4;&#xC870;&#xD558;&#xB294; &#xC218;&#xB2E8;&#xC73C;&#xB85C; &#xB098;&#xC628; &#xC5D4;&#xC9C4;&#xC774;&#xB2E4;. &#xC5EC;&#xB7EC;&#xAC00;&#xC9C0; &#xC5D4;&#xC9C4;&#xC774; &#xC874;&#xC7AC;&#xD558;&#xB294;&#xB370; &#xC5EC;&#xAE30;&#xC11C;&#xB294; nunjucks &#xC5D0; &#xB300;&#xD574; &#xC54C;&#xC544;&#xBCFC; &#xAC83;&#xC774;&#xB2E4;.</p>
-<h3 id="1-">1. &#xC124;&#xCE58;</h3>
-<pre><code>npm install nunjucks --s</code></pre><h3 id="2-">2. &#xC0AC;&#xC6A9;&#xBC95;</h3>
+<p>view engine &#xC740; &#xAE30;&#xC874;&#xC758; html &#xC744; &#xBCF4;&#xC870;&#xD558;&#xB294; &#xC218;&#xB2E8;&#xC73C;&#xB85C; &#xB098;&#xC628; &#xC5D4;&#xC9C4;&#xC774;&#xB2E4;. &#xC5EC;&#xB7EC;&#xAC00;&#xC9C0; &#xC5D4;&#xC9C4;&#xC774; &#xC874;&#xC7AC;&#xD558;&#xB294;&#xB370; &#xC5EC;&#xAE30;&#xC11C;&#xB294; nunjucks &#xC5D0; &#xB300;&#xD574; &#xC54C;&#xC544;&#xBCFC; &#xAC83;&#xC774;&#xB2E4;. &#xD0EC;&#xBE14;&#xB9BF; &#xC5D4;&#xC9C4;&#xC744; &#xC0AC;&#xC6A9;&#xD574;&#xC57C; &#xD558;&#xB294; &#xC790;&#xC138;&#xD55C; &#xC774;&#xC720;&#xB294; <a href="https://insight-bgh.tistory.com/252">&#xC774; &#xB9C1;&#xD06C;</a> &#xB97C; &#xCC38;&#xACE0;&#xD558;&#xB77C;</p>
+<h3 id="1-nunjucks">1. nunjucks</h3>
+<h4 id="1-">1. &#xC124;&#xCE58;</h4>
+<pre><code>npm install nunjucks --s</code></pre><h4 id="2-">2. &#xC0AC;&#xC6A9;&#xBC95;</h4>
 <p><strong>[SOURCE_mainJSFile]</strong></p>
 <pre><code class="language-javascript">const &#xBCC0;&#xC218;1 = require(&apos;nunjucks&apos;)
 
@@ -215,6 +217,55 @@ nunjucks.configure(&apos;views&apos;/*1&#xBC88;*/, {
         message : &apos;hello? hi?&apos;
     })
 })</code></pre>
+<h3 id="2-pug">2. pug</h3>
+<h4 id="1-">1. &#xC124;&#xCE58;</h4>
+<pre><code>npm install pug -s</code></pre><h4 id="2-">2. &#xC0AC;&#xC6A9;&#xBC95;</h4>
+<p><strong>[&#xD30C;&#xC77C;&#xAD6C;&#xC870;]</strong></p>
+<pre><code>views
+    main.pug
+index.js</code></pre><p><strong>[SOURCE-index.js]</strong></p>
+<pre><code class="language-javascript">const express = require(&apos;express&apos;);
+
+const app = express();
+const port = 2000;
+
+app.set(&apos;view engine&apos;, &apos;pug&apos;)//view engine &#xC744; pug &#xB85C; &#xD55C;&#xB2E4;.
+app.set(&apos;views&apos;, &apos;./views&apos;)//view &#xD30C;&#xC77C;&#xB4E4;&#xC758; &#xACBD;&#xB85C;&#xB97C; &#xC9C0;&#xC815;&#xD55C;&#xB2E4;.
+
+app.get(&apos;/&apos;, (req,res)=&gt;{
+    res.render(&apos;main&apos;)// set &#xC73C;&#xB85C; &#xC124;&#xC815;&#xB41C; &#xD30C;&#xC77C;&#xC911; main &#xD30C;&#xC77C;&#xC744; &#xB80C;&#xB354;&#xB9C1;&#xD55C;&#xB2E4;.
+})
+app.listen(port, ()=&gt;{
+    console.log(&apos;express listening on port&apos;, port);
+})</code></pre>
+<p><strong>[SOURCE-main.pug]</strong></p>
+<pre><code class="language-pug">html
+    head
+    body
+        #background(style = &quot;width : 300px; height : 300px; background-color : black&quot;)</code></pre>
+<h3 id="3-">3. &#xD0EC;&#xD50C;&#xB9BF; &#xC0C1;&#xC18D;</h3>
+<p>&#xBA3C;&#xC800; &#xC774;&#xC804;&#xC758; &#xC18C;&#xC2A4;&#xC5D0;&#xC11C; <code>autoescape : true</code> &#xB97C; &#xD558;&#xB294; &#xC774;&#xC720;&#xC5D0; &#xB300;&#xD574; &#xC54C;&#xC544;&#xBCF4;&#xC790;.</p>
+<p>&#xC18C;&#xC2A4; &#xD30C;&#xC77C;&#xC740; <a href>&#xC774; &#xB9C1;&#xD06C;</a>&#xC5D0; &#xC788;&#xB2E4;. &#xC5EC;&#xAE30; &#xC788;&#xB294; &#xD30C;&#xC77C; &#xC911; <code>index.js</code> &#xC5D0; <code>autoescape</code> &#xC5D0; &#xAD00;&#xB828;&#xB41C; &#xC18C;&#xC2A4;&#xAC00; &#xC788;&#xB2E4;. &#xC774; <code>index.js</code> &#xBD80;&#xBD84;&#xC5D0;&#xC11C; <code>autoescape</code> &#xBD80;&#xBD84;&#xB9CC; &#xBCF4;&#xC790;. &#xADF8;&#xB9AC;&#xACE0; <code>coontactRoutes</code> &#xD3F4;&#xB354;&#xC5D0; <code>contact.js</code> &#xB97C; &#xBCF4;&#xC790;.</p>
+<p><strong>[SOURCE-index.js]</strong></p>
+<pre><code class="language-javascript">nunjucks.configure(&apos;views&apos;, {
+    autoescape : true,
+    express : app
+})</code></pre>
+<p><strong>[SOURCE-contact.js]</strong></p>
+<pre><code class="language-javascript">routerOfContact.get(&apos;/list&apos;, (req, res)=&gt;{
+    // res.send(&apos;URL : localhost:3300/contact/list&apos;);
+    res.render(&apos;contact/list.html&apos;,{
+        message:`&lt;h1&gt;h1 &#xD0DC;&#xADF8;&#xAC00; &#xCD9C;&#xB825;&#xB429;&#xB2C8;&#xB2E4;&lt;/h1&gt;`,
+        online : &apos;express&apos;
+    })
+});</code></pre>
+<p>autoescape &#xC0C1;&#xD0DC;&#xC5D0; &#xB530;&#xB978; localhost:3300/contact/list &#xC758; &#xD654;&#xBA74;&#xC744; &#xBCF4;&#xC790;</p>
+<p><strong>[autoescape : true]</strong>
+<img src="./imgFolder/expressStudyIMG7.png" alt="autoescape : true"></p>
+<p><strong>[autoescape : false]</strong>
+<img src="./imgFolder/expressStudyIMG8.png" alt="autoescape : false"></p>
+<p><code>autoescape : true</code> &#xC77C; &#xB54C;&#xB294; <code>message</code> &#xC5D0; &#xC800;&#xC7A5;&#xB418;&#xC5B4; &#xC788;&#xB294; &#xBB38;&#xC790;&#xC5F4;&#xC774; &#xBB38;&#xC790;&#xC5F4; &#xADF8;&#xB300;&#xB85C; &#xB4E4;&#xC5B4;&#xAC04;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC; <code>autoescape : false</code> &#xC77C; &#xB54C;&#xB294; <code>message</code> &#xC5D0; &#xC800;&#xC7A5;&#xB418;&#xC5B4; &#xC788;&#xB294; &#xBB38;&#xC790;&#xC5F4;&#xC774; html &#xD0DC;&#xADF8;&#xB85C; &#xC778;&#xC2DD;&#xB418;&#xC5B4; &#xC774;&#xC2DD;&#xB41C;&#xB2E4;. &#xC989; &#xC11C;&#xBC84;&#xC5D0;&#xC11C; &#xBC1B;&#xC544;&#xC624;&#xB294; &#xC815;&#xBCF4;&#xB098; &#xD074;&#xB77C;&#xC774;&#xC5B8;&#xD2B8;&#xAC00; &#xB358;&#xC838;&#xC8FC;&#xB294; &#xC815;&#xBCF4;&#xC5D0; &#xC18C;&#xC2A4;&#xC5D0; &#xC601;&#xD5A5;&#xC744; &#xC8FC;&#xC9C0; &#xC54A;&#xB3C4;&#xB85D; &#xD574; &#xC8FC;&#xB294; &#xAE30;&#xB2A5;&#xC774; <code>autoescape</code> &#xC774;&#xB2E4;.</p>
+<p><code>pug &#xD0EC;&#xD50C;&#xB9BF; &#xC0C1;&#xC18D; &#xACF5;&#xBD80;&#xD558;&#xACE0; &#xB118;&#xC5B4;&#xAC00;&#xAE30;</code></p>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>
