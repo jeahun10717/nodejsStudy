@@ -218,7 +218,9 @@ routerOfProducer.get('/', (req, res)=>{
 module.exports = routerOfProducer;
 ```
 
-### 3. multy routing Source
+### 3. Multi Router Source
+
+프랙탈 구조로 라우터를 연속적으로 사용하는 소스가 있다. [이 링크](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode)에 4_multi_router 부분 다운받으면 된다.
 
 
 
