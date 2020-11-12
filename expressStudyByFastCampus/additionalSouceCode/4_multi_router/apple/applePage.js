@@ -1,5 +1,6 @@
 const express = require('express');
-const routerApple = express.Router();
+// const routerApple = express.Router(); express 의 Router 모듈만 사용하려면 이게 낫다.
+const routerApple = express();
 
 const ipad = require('./ipad/ipadPage')
 const iphone = require('./iphone/iphonePage')
@@ -25,9 +26,11 @@ fs.readdirSync(__dirname).forEach(file=>{
     }
 })
 
+routerApple.set('view engine', 'pug');//view engine으로 pug 사용
+routerApple.set('views', './views/apple')//pug 파일이 존재하는 폴더 지정
 
 routerApple.get('/', (req, res)=>{
-    res.send('this is `apple` 페이지')
+    res.render('applePage')//applePage.pug 파일 렌더링
 })
 
 module.exports=routerApple;
