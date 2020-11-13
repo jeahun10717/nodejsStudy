@@ -39,9 +39,8 @@ const app = express();
 
 ## ANSWER_3
 
-소스 짜 놨음 참고 ㄱㄱ
-
-[]()
+소스 짜 놨음 참고하셈. 링크는 밑에
+[link]()
 
 ---
 
@@ -65,3 +64,19 @@ app.get('/', (req,res)=>{
 위의 소스는 동작하지 않는다. 이유는? => `res` 에 관해 공부하기
 
 ## ANSWER_5
+
+---
+
+## QUESTION_6
+
+Refused to apply style MIME type error
+
+1. 이거 오류 발생하는데 해결방법으로 static 설정을 추가하면 되는데 왜 추가해야 함?
+2. 정확한 해결방법과 제일 좋은 방식으로 front 작성하는 방법은?
+3.
+질문에 대한 소스는 [이 링크의]() `4_viewInheritance` 폴더를 참고할 것
+[이 링크](https://expressjs.com/ko/starter/static-files.html)를 참조하여 공부해 볼 것.
+
+## ANSWER_6
+
+---
