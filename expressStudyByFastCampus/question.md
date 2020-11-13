@@ -33,7 +33,15 @@ const app = express();
 
 ## QUESTION_3 : multi router source
 
+아래와 같은 폴더 구조로 router 를 다중으로 쓰는 소스를 만들 수 있음?
+
+![Multi router Source](./imgFolder/expressStudyIMG9.png)
+
 ## ANSWER_3
+
+소스 짜 놨음 참고 ㄱㄱ
+
+[]()
 
 ---
 
