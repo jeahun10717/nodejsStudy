@@ -84,7 +84,7 @@ app.get('/', (req,res)=>{
 
 `Refused to apply style MIME type error` 오류 해결방법
 
-1. 이거 오류 발생하는데 해결방법으로 `static` 설정을 추가하면 되는데 왜 추가해야 함?
+1. 이거 오류 발생하는데 해결방법으로 static 설정을 추가하면 되는데 왜 추가해야 함?
 2. 정확한 해결방법과 제일 좋은 방식으로 front 작성하는 방법은?
 
 질문에 대한 소스는 [이 링크의]() `4_viewInheritance` 폴더를 참고할 것
@@ -100,5 +100,5 @@ app.get('/', (req,res)=>{
 
 위의 도식에서 `mainPage.pug` 는 `header.pug` 파일을 `extend` 한다. 이렇게 같은 폴더 안에 있는 파일을 `extends` 하는 건 할 수 있겠는데 외부 폴더에 있는 건 어떻게 접근해야 하나? 밑의 도식처럼 코딩을 하려면 어떻게 해야 하나? 즉 `./mainFolder/admin/adminPage.pug` 에서 `./mainFolder/layout/header.pug` 를 참조(`extends`) 하고 싶은데 어떻게 해야 함?
 
-
+![express 파일 참조](./imgFolder/expressStudyIMG11.png)
 ## ANSWER_7
