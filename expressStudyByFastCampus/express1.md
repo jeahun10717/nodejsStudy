@@ -342,6 +342,8 @@ autoescape 상태에 따른 localhost:3300/contact/list 의 화면을 보자
 **[autoescape : false]**
 ![autoescape : false](./imgFolder/expressStudyIMG8.png)
 
-`autoescape : true` 일 때는 `message` 에 저장되어 있는 문자열이 문자열 그대로 들어간다. 하지만 `autoescape : false` 일 때는 `message` 에 저장되어 있는 문자열이 html 태그로 인식되어 이식된다. 즉 서버에서 받아오는 정보나 클라이언트가 던져주는 정보에 소스에 영향을 주지 않도록 해 주는 기능이 `autoescape` 이다.
+`autoescape : true` 일 때는 `message` 에 저장되어 있는 문자열이 문자열 그대로 들어간다. 하지만 `autoescape : false` 일 때는 `message` 에 저장되어 있는 문자열이 html 태그로 인식되어 이식된다. 즉 서버에서 받아오는 정보나 클라이언트가 던져주는 정보에 소스에 영향을 주지 않도록 해 주는 기능이 `autoescape` 이다.</br>
 
-`pug 탬플릿 상속 공부하고 넘어가기`
+이제 본격적으로 탬플릿 상속에 대해 알아보자.
+
+`어제 개념이해 끝내 놓음. 화요일에 정리할 것!!!!!!`

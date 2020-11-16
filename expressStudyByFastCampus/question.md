@@ -1,6 +1,19 @@
 # QUESTION & ANSWER
 * express 공부하면서 나온 질문 외에도 다른 질문도 할거임
 
+|Q&A index|해결 여부|Question Number|해결 여부|
+|---|---|---|---|
+|1|X|11||
+|2|`complete`|12||
+|3|`complete`|13||
+|4|X|14||
+|5|X|15||
+|6|X|16||
+|7||17||
+|8||18||
+|9||19||
+|10||20||
+
 ---
 
 ## QUESTION_1 : module.exports
@@ -40,7 +53,7 @@ const app = express();
 ## ANSWER_3
 
 소스 짜 놨음 참고하셈. 링크는 밑에
-[link]()
+[link](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode/4_multi_router)
 
 ---
 
@@ -69,14 +82,23 @@ app.get('/', (req,res)=>{
 
 ## QUESTION_6
 
-Refused to apply style MIME type error
+`Refused to apply style MIME type error` 오류 해결방법
 
-1. 이거 오류 발생하는데 해결방법으로 static 설정을 추가하면 되는데 왜 추가해야 함?
+1. 이거 오류 발생하는데 해결방법으로 `static` 설정을 추가하면 되는데 왜 추가해야 함?
 2. 정확한 해결방법과 제일 좋은 방식으로 front 작성하는 방법은?
-3.
+
 질문에 대한 소스는 [이 링크의]() `4_viewInheritance` 폴더를 참고할 것
 [이 링크](https://expressjs.com/ko/starter/static-files.html)를 참조하여 공부해 볼 것.
 
 ## ANSWER_6
 
 ---
+
+## QUESTION_7
+
+![express 파일 참조](./imgFolder/expressStudyIMG10.png)
+
+위의 도식에서 `mainPage.pug` 는 `header.pug` 파일을 `extend` 한다. 이렇게 같은 폴더 안에 있는 파일을 `extends` 하는 건 할 수 있겠는데 외부 폴더에 있는 건 어떻게 접근해야 하나? 밑의 도식처럼 코딩을 하려면 어떻게 해야 하나? 즉 `./mainFolder/admin/adminPage.pug` 에서 `./mainFolder/layout/header.pug` 를 참조(`extends`) 하고 싶은데 어떻게 해야 함?
+
+
+## ANSWER_7
