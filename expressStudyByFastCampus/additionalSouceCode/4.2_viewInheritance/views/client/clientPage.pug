@@ -1,4 +1,7 @@
-html
-    head
-    body
-        #testBox(style = 'width : 200px; height : 200px; background-color : red') this is client page
+extends ../layout/base.pug
+
+block pageCssLink
+    link(rel="stylesheet", href="../css/mainPage.css")
+
+block content
+    #contentWrapper this is clientPage content part

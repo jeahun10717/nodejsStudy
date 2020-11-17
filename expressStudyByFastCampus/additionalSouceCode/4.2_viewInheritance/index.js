@@ -12,7 +12,7 @@ app.set('views', './views');//views는 고정, 뒤는 views 파일이 존재하�
 
 app.use('/admin222', adminPage);//module.exports 로 내보내 졌던 정보를 가져와서 라우터 연결
 app.use('/client444', clientPage);//module.exports 로 내보내 졌던 정보를 가져와서 라우터 연결
-app.use(express.static('views'))
+app.use(express.static('views'));
 
 app.get('/',(req,res)=>{
     res.render('mainPage')

@@ -344,6 +344,33 @@ autoescape 상태에 따른 localhost:3300/contact/list 의 화면을 보자
 
 `autoescape : true` 일 때는 `message` 에 저장되어 있는 문자열이 문자열 그대로 들어간다. 하지만 `autoescape : false` 일 때는 `message` 에 저장되어 있는 문자열이 html 태그로 인식되어 이식된다. 즉 서버에서 받아오는 정보나 클라이언트가 던져주는 정보에 소스에 영향을 주지 않도록 해 주는 기능이 `autoescape` 이다.</br>
 
-이제 본격적으로 탬플릿 상속에 대해 알아보자.
+이제 본격적으로 탬플릿 상속에 대해 알아보자.</br>
 
-`어제 개념이해 끝내 놓음. 화요일에 정리할 것!!!!!!`
+밑의 파일 구조를 가지는 어떠한 코드들이 있다고 가정해 보자.
+
+![experss viwe engine inheritance img](./imgFolder/expressStudyIMG10.png)
+
+여기서 mainPage.pug 는 사이트의 메인에 해당하는 페이지를 구성하는 pug 파일이며, admin 페이지와 client 페이지가 존재한다고 가정해 보자. 이러한 상황에서 사이트의 윗부분과 아랫부분은 바뀌지 않는다고 가정해보자.(아래 그림 참조)
+
+![google header, footer img](./imgFolder/expressStudyIMG12.png)
+
+위의 사진은 구글의 검색창이다. 우리가 만드는 대부분의 사이트에서 위의 빨간 박스와 밑의 빨간 박스는 거의 변화가 없다. 이러한 소스를 일일히 치게 된다면 소스의 낭비가 심할 것이다. 또한 이러한 부분을 수정하기 위해서는 일일히 모든 파일을 수정해야 하는 번거로움이 존재한다. 만약에 이러한 파일들만 따로 빼서 관리를 할 수 있다면 소스를 간결하게 할 수 있을 뿐 아니라 유지보수 역시 용이해진다. 이러한 기능을 제공하는 것이 탬플릿엔진 상속 이다.</br>
+우리가 만들려고 하는 사이트 역시 위의 사진과 마찬가지로 위와 아랫부분을 공유한다고 가정하자. 또한 현재 파일 구조가 server 부분까지 들어가면 너무 복잡하므로 views 폴더만 따로 보자.
+
+![views Folder struct](./imgFolder/expressStudyIMG13.png)
+
+위의 파일구조를 코딩할 것이다.
+
+**[SOURCE-./mainPage.pug]**
+
+```pug
+extends ./layout/base.pug
+
+block pageCssLink
+    link(rel="stylesheet", href="./css/mainPage.css")
+
+block content
+    #contentWrapper
+        #mainBanner this is mainBanner
+        #pageList this is pageList
+```

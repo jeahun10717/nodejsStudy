@@ -9,7 +9,7 @@
 |4|X|14||
 |5|X|15||
 |6|X|16||
-|7||17||
+|7|X|17||
 |8||18||
 |9||19||
 |10||20||
@@ -101,4 +101,7 @@ app.get('/', (req,res)=>{
 위의 도식에서 `mainPage.pug` 는 `header.pug` 파일을 `extend` 한다. 이렇게 같은 폴더 안에 있는 파일을 `extends` 하는 건 할 수 있겠는데 외부 폴더에 있는 건 어떻게 접근해야 하나? 밑의 도식처럼 코딩을 하려면 어떻게 해야 하나? 즉 `./mainFolder/admin/adminPage.pug` 에서 `./mainFolder/layout/header.pug` 를 참조(`extends`) 하고 싶은데 어떻게 해야 함?
 
 ![express 파일 참조](./imgFolder/expressStudyIMG11.png)
+
+소스 파일이 이 링크를 타고 가면 됨
+
 ## ANSWER_7

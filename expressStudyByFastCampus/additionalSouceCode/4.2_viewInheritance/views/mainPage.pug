@@ -1,5 +1,9 @@
-extends header.pug
-//-header.pug 파일에 있는 부분을 가져온다.
-block content 
-    //-가져오는 파일을 붙여넣는 연결부분 <1>
-    #mainContent(style = 'background-color : blue; width : 200px; height : 400px')
+extends ./layout/base.pug
+
+block pageCssLink
+    link(rel="stylesheet", href="./css/mainPage.css")
+
+block content
+    #contentWrapper
+        #mainBanner this is mainBanner
+        #pageList this is pageList

@@ -1,0 +1,15 @@
+#contentWrapper{
+    width: 500px;
+    height: 500px;
+    background-color: blueviolet;
+}
+#mainBanner{
+    width: 500px;
+    height: 200px;
+    background-color: cadetblue;
+}
+#pageList{
+    width: 500px;
+    height: 300px;
+    background-color: crimson;
+}
