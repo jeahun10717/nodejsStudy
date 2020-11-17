@@ -1,8 +1,8 @@
 extends ./layout/base.pug
-
+//- <1> : 상속받을 pug 파일을 extends 로 받아온다
 block pageCssLink
     link(rel="stylesheet", href="./css/mainPage.css")
-
+//- <2> : block 은 상속받은 pug 파일에 붙여넣을 부분을 지정하는 지정자이다.
 block content
     #contentWrapper
         #mainBanner this is mainBanner

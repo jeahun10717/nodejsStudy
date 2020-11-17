@@ -16,6 +16,12 @@
     display: inline-block;
 }
 
+#searchBox1, #searchBox2{
+    width: 300px;
+    height: 50px;
+    background-color: darkseagreen;
+}
+
 #footerWrapper{
     width: 500px;
     height: 200px;

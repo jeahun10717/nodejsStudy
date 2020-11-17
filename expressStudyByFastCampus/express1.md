@@ -359,18 +359,142 @@ autoescape 상태에 따른 localhost:3300/contact/list 의 화면을 보자
 
 ![views Folder struct](./imgFolder/expressStudyIMG13.png)
 
-위의 파일구조를 코딩할 것이다.
+위의 파일구조를 코딩할 것이다. 탬플릿 상속에는 `extends` 와 `include` 가 존재한다.
+
+**1. `extends`**
 
 **[SOURCE-./mainPage.pug]**
 
 ```pug
 extends ./layout/base.pug
-
+//- <1> : 상속받을 pug 파일을 extends 로 받아온다
 block pageCssLink
     link(rel="stylesheet", href="./css/mainPage.css")
-
+//- <2> : block 은 상속받은 pug 파일에 붙여넣을 부분을 지정하는 지정자이다.
 block content
     #contentWrapper
         #mainBanner this is mainBanner
         #pageList this is pageList
 ```
+
+**[SOURCE-./layout/base.pug]**
+
+```pug
+doctype
+html
+    head
+        link(rel="stylesheet", href="./css/layout.css")
+        block pageCssLink
+    body
+        include header.pug
+        block content
+        include footer.pug
+```
+
+반복적으로 쓰이는 부분(base.pug)을 형식에 맞춰 코딩한다. 변하는 부분이 존재하는 파일은 변하는 부분만 block 을 통해 병렬로 작성하면 된다. 처리가 될 땐 아래의 도식을 따른다.
+
+![proccess of template inheritance](./imgFolder/expressStudyIMG14.png)
+
+위의 도식에서 3번째 프로세스를 보자 여기서 통합되어진 소스는 아래와 같다.
+
+**[SOURCE-통합 후 mainPage 부분 소스]**
+
+```pug
+doctype
+html
+    head
+        link(rel="stylesheet", href="./css/layout.css")
+        link(rel="stylesheet", href="./css/layout.css")
+    body
+        include header.pug
+        //- 밑의 3줄의 소스가 block content 부분이다.
+        #contentWrapper
+            #mainBanner this is mainBanner
+            #pageList this is pageList
+        include footer.pug
+```
+
+include 는 해당 파일 자체를 그대로 가져오게 된다.
+
+**[SOURCE-./layout/header.pug]**
+
+```pug
+#headerWrapper
+    #goHomeLogo goHomeLogo
+    #searchBox this is searchBox
+```
+
+**[SOURCE-./layout/footer.pug]**
+
+```pug
+#footerWrapper
+    #copyWriteBox this is copywrite
+    #outterWebLinkList this is outterLink
+```
+
+위의 2개의 소스까지 통합해서 들어가게 되는데 front-end 로 넘어가는 pug 소스는 아래와 같다.
+
+**[SOURCE-final pug]**
+
+```pug
+doctype
+html
+    head
+        link(rel="stylesheet", href="./css/layout.css")
+        link(rel="stylesheet", href="./css/layout.css")
+    body
+        //- include header.pug 부분
+        #headerWrapper
+            #goHomeLogo goHomeLogo
+            #searchBox this is searchBox
+        //- block 부분
+        #contentWrapper
+            #mainBanner this is mainBanner
+            #pageList this is pageList
+        //- include footer.pug 부분
+        #footerWrapper
+            #copyWriteBox this is copywrite
+            #outterWebLinkList this is outterLink
+
+```
+
+이렇게 1부분만 소스로 만든다고 하면 이점이 없다. 하지만 위의 도식에서 `./admin/adminPage.pug`, `./client/clientPage.pug` 부분 역시 적용이 가능하다.
+
+**[SOURCE-./admin/adminPage.pug]**
+
+```pug
+extends ../layout/base.pug
+
+block pageCssLink
+    link(rel="stylesheet", href="../css/mainPage.css")
+
+block content
+    #contentWrapper this is adminPage content part
+```
+
+**[SOURCE-./client/clientPage.pug]**
+
+```pug
+extends ../layout/base.pug
+
+block pageCssLink
+    link(rel="stylesheet", href="../css/mainPage.css")
+
+block content
+    #contentWrapper this is clientPage content part
+```
+
+**[BROWSER-최종결과화면(모든 페이지 포함)]**
+
+![결과창](./imgFolder/expressStudyIMG16.png)
+
+위와 같은 결과창이 보이게 되는데 이러한 결과창에서 위와 아래의 공통부분이 우리가 `extends`, `include` 를 통해 만든 부분이다. 자 이제 이 공통부분을 한번에 바꿔보자.
+
+**[SOURCE-./layout/header.pug]**
+
+```pug
+#headerWrapper
+
+```
+
+결과창 div 틀어진 것 까지 정리해서 올릴 것!

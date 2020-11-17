@@ -1,7 +1,7 @@
 # QUESTION & ANSWER
 * express 공부하면서 나온 질문 외에도 다른 질문도 할거임
 
-|Q&A index|해결 여부|Question Number|해결 여부|
+|Q&A index|해결 여부|Q&A index|해결 여부|
 |---|---|---|---|
 |1|X|11||
 |2|`complete`|12||
@@ -102,6 +102,23 @@ app.get('/', (req,res)=>{
 
 ![express 파일 참조](./imgFolder/expressStudyIMG11.png)
 
-소스 파일이 이 링크를 타고 가면 됨
+[소스 파일이 이 링크를 타고 가면 됨]()
 
 ## ANSWER_7
+
+위의 질문을 해결하기 위해서는 아래의 2가지 문제를 해결해야 한다.
+
+1. 다른 폴더에 존재하는 파일을 접근하는 것
+2. `extend <file path>` 부분의 의미
+
+* `1.` 에 대한 답은 간단하다. 아래의 표를 보고 확인해 보자.
+```
+/   = Root directory
+.   = This location(현재 위치)
+..  = Up a directory(상위 위치)
+./  = Current directory(최근 위치)
+../ = Parent of current directory(최근 위치의 상위 위치)
+../../ = Two directories backwards
+```
+
+* `2.` 에 대해 알아보자.
