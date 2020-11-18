@@ -1,25 +1,28 @@
+*{position: relative; box-sizing: border-box;}
+
 #headerWrapper{
     width: 500px;
     height: 100px;
     background-color: red;
+    box-sizing: border-box;
 }
 #goHomeLogo{
     width: 100px;
     height: 100px;
-    background-color: aqua;
+    background-color: darkviolet;
     display: inline-block;
 }
 #searchBox{
     width: 300px;
     height: 100px;
-    background-color: aquamarine;
+    background-color: darksalmon;
     display: inline-block;
-}
-
-#searchBox1, #searchBox2{
-    width: 300px;
-    height: 50px;
-    background-color: darkseagreen;
+} 
+#subMenuBox{
+    width: 100px;
+    height: 100px;
+    background-color: deeppink;
+    display: inline-block;
 }
 
 #footerWrapper{

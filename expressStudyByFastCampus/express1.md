@@ -490,11 +490,19 @@ block content
 
 위와 같은 결과창이 보이게 되는데 이러한 결과창에서 위와 아래의 공통부분이 우리가 `extends`, `include` 를 통해 만든 부분이다. 자 이제 이 공통부분을 한번에 바꿔보자.
 
-**[SOURCE-./layout/header.pug]**
+**[SOURCE-./layout/header.pug 수정전]**
 
 ```pug
 #headerWrapper
-
+    #goHomeLogo goHomeLogo
+    #searchBox this is searchBox
 ```
 
-결과창 div 틀어진 것 까지 정리해서 올릴 것!
+**[SOURCE-./layout/header.pug 수정후]**
+
+```pug
+#headerWrapper
+    #goHomeLogo
+    #searchBox
+    #subMenuBox
+```
