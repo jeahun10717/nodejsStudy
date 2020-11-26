@@ -122,7 +122,7 @@ Parent process exiting, terminating child...
 CONSOLE 창에서 볼 수 있듯 정상적으로 작동한다.
 
 
-## 2. router
+## 3. router
 
 웹페이지의 복잡도가 지나치게 올라가면 수정이나 보완이 힘들다. 이러한 유지보수성을 올리기 위해 라우터를 사용하여 소스의 복잡도를 낮출 수 있다.
 
@@ -224,7 +224,7 @@ module.exports = routerOfProducer;
 
 
 
-## 3. view engine
+## 4. view engine
 
 view engine 은 기존의 html 을 보조하는 수단으로 나온 엔진이다. 여러가지 엔진이 존재하는데 여기서는 nunjucks 에 대해 알아볼 것이다. 탬블릿 엔진을 사용해야 하는 자세한 이유는 [이 링크](https://insight-bgh.tistory.com/252) 를 참고하라
 ### 1. nunjucks
@@ -506,3 +506,148 @@ block content
     #searchBox
     #subMenuBox
 ```
+
+![결과창2](./imgFolder/expressStudyIMG17.png)
+
+위의 2개의 이미지에서 윗부분을 보면 소스수정은 header.pug 부분만 고쳤는데 모두가 수정되었음을 알 수 있다. 이것이 template inheritance의 장점이다.
+
+## 5. middle ware
+
+middle ware 란 기본적으로 javascript 나 express 가 제공하지 않는 기능을 http 요청과 라우팅 사이에 적용시킬 수 있는 함수 이다. 다른 사람의 소스나 자신이 만들어낸 소스를 간단히 사용하고 적용할 수 있도록 해주는게 미들웨어의 장점이다.
+
+![middle ware 도식화](./imgFolder/expressStudyIMG18.png)
+
+간단한 middleware 를 작성해보자. [아래에서 사용된 소스는 이 링크에 5_middleware 폴더에 있다]()
+
+**[SOURCE_./index.js]**
+
+```javascript
+//생략
+const logger = require('morgan');
+//생략
+
+//*************************************
+//미들 웨어 세팅 부분
+app.use(logger('dev'))
+
+//*************************************
+//생략
+```
+
+위의 소스는 morgan 이라는 미들웨어를 사용하기 위한 패키지 세팅이다.
+
+**[SOURCE_./apple/apple.js]**
+
+```javascript
+// `url : localhost:4000/apple` 부터 시작
+//생략
+function testMiddleWare(req, res, next) {
+    console.log('첫번째 미들웨어');
+    next();
+}
+
+// 생략
+routerOfApple.get('/', testMiddleWare, (req, res)=>{
+    res.send('this is `apple` page')
+})
+// 생략
+```
+
+위의 소스에서 testMiddleWare 라는 함수를 정의하였다. 미들웨어의 실행 순서는 아래와 같다.
+
+![middleware 동작 img](./imgFolder/expressStudyIMG19.png)
+
+실행순서
+
+1. http 요청 : `'/'` 부분
+2. middleWare 우선 실행 : `testMiddleWare` 부분
+3. middleWare function 안의 next() 실행(next 를 실행하면 이후의 소스로 넘어간다.)
+4. routing 작업 : (req,res)=>{} 부분 실행
+
+이러한 middleWare 함수는 여러 번 선언하고 사용할 수 있다.
+
+```javascript
+function testMiddleWare(req, res, next) {
+    console.log('첫번째 미들웨어');
+    next();
+}
+
+function testMiddleWare2(req, res, next) {
+    console.log('두번째 미들웨어');
+    next();
+}
+
+routerOfApple.get('/', testMiddleWare, testMiddleWare2, (req, res)=>{
+    res.send('this is `apple` page')
+})
+```
+위의 소스에서 routerOfApple 에서 실행 순서는 `'/'` -> `testMiddleWare` -> `testMiddleWare2` -> `(req,res)=>{}` 순이다.</br>
+
+실제 업무에서 사용되는 로그인 유무에 따른 페이지 컨트롤을 보자
+
+```javascript
+function loginRequire(req,res,next) {
+    if(loginFlag==true){
+        res.redirect('/login')
+    }
+    else{
+        next();
+    }
+}
+
+routerOfApple.get('/', loginRequire, (req, res)=>{
+    res.send('this is `apple` page')
+})
+
+```
+
+위의 소스에서 로그인 유무를 판별하여 로그인이 되어 있으면 `next()` 를 실행하여 페이지를 로드하고 로그인이 되어있지 않으면 로그인 페이지로 넘기는 소스이다.
+
+## 6. body-parser
+
+body 란 웹에서 요청한 웹페이지의 정보를 의미한다. 이러한 body 의 정보를 받아서 가공해야 하는데 이러한 일련의 과정을 도와주는 것이 body-parser 이다. 밑의 소스를 보며 예를 들어 보자.</br>
+[이 링크에 소스 전체가 있다](). 이 소스를 돌려 보면 `localhost:4000/apple/write` 페이지에 밑의 결과창이 나온다.
+
+![body parser img](./imgFolder/expressStudyIMG20.png)
+
+위의 결과창에 각각 정보를 입력해서 작성을 한다고 가정하자. 이 때 이러한 정보들을 js 파일로 가져와서 가공을 해야 할 때 body-parser 를 사용한다.
+
+**[SOURCE-write.pug]**
+
+```pug
+extends ../../base/base.pug
+
+block write
+  form(action="", method="post")
+    table.table.table-bordered
+      tbody
+        tr
+          th 제품명
+          td
+            input.form-control(type="text", name="name")
+        tr
+          th 가격
+          td
+            input.form-control(type="text", name="price")
+        tr
+          th 설명
+          td
+            input.form-control(type="text", name="description")
+    button.btn.btn-primary 작성하기
+
+```
+
+**[SOURCE-apple.js]**
+
+```javascript
+//생략
+const bodyParser = require('body-parser'); //bodyParser 모듈을 호출
+routerOfApple.use(bodyParser.urlencoded({extended : false}))//미들웨어로 사용하겠다는 소스
+//생략
+routerOfApple.post('/write', (req,res)=>{
+    res.send(req.body.price)//write.pug 의 input 태그에서 받아온 값(price 변수)
+})
+//생략
+```
+
+위의 이미지에서 `작성하기` 를 클릭하면 정보가 넘어가게 된다. (이는 pug에서 form 태그로 정보를 넘겨줄 때 적용되는 사항이다.) 이 때 `req.body.name` 부분을 보자. `body는` 우리가 호출할 pug 혹의 html 소스가 웹에 띄워주는 소스를 의미하는데 그중 `name` 이 `price` 인 입력값을 받아온다.
