@@ -1,0 +1,19 @@
+extends ../../base/base.pug
+
+block write
+  form(action="", method="post")
+    table.table.table-bordered
+      tbody
+        tr
+          th 제품명
+          td
+            input.form-control(type="text", name="name")
+        tr
+          th 가격
+          td
+            input.form-control(type="text", name="price")
+        tr
+          th 설명
+          td
+            input.form-control(type="text", name="description")
+    button.btn.btn-primary 작성하기

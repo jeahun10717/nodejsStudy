@@ -7,7 +7,7 @@
 
 ![request, response](./imgFolder/expressStudyIMG1.png)
 
-웹서버에서 사용자는 서버에게 요청을 하고 그 요청에 대한 답을 서버는 사용자에게 제공한다. 이러한 요청과 반응의 소스를 만들주는 것을 프레임워크라 한다. 여러가지의 프레임워크가 존재하는데 우리는 express 에 대해 알아볼 것이다. express 는 기존의 사용자가 많아 관련된 자료가 많고 코드 작성을 줄여주는 유용한 api 들이 많기 때문에 사용하기 편하다.
+웹서버에서 사용자는 서버에게 요청을 하고 그 요청에 대한 답을 서버는 사용자에게 제공한다. 이러한 요청과 반응의 소스를 만들주는 것을 프레임워크라 한다. 여러가지의 프레임워크가 존재하는데 우리는 express 에 대해 알아볼 것이다. express 는 기존의 사용자가 많아 관련된 자료가 많고 코드 작성을 줄여주는 유용한 api 들이 많기 때문에 사용하기
 
 ## 2. 서버 만들어 보기
 
@@ -606,7 +606,7 @@ routerOfApple.get('/', loginRequire, (req, res)=>{
 ## 6. body-parser
 
 body 란 웹에서 요청한 웹페이지의 정보를 의미한다. 이러한 body 의 정보를 받아서 가공해야 하는데 이러한 일련의 과정을 도와주는 것이 body-parser 이다. 밑의 소스를 보며 예를 들어 보자.</br>
-[이 링크에 소스 전체가 있다](). 이 소스를 돌려 보면 `localhost:4000/apple/write` 페이지에 밑의 결과창이 나온다.
+[이 링크에 소스 전체가 있다](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode/5.2_bodyParser). 이 소스를 돌려 보면 `localhost:4000/apple/write` 페이지에 밑의 결과창이 나온다.
 
 ![body parser img](./imgFolder/expressStudyIMG20.png)
 
@@ -651,3 +651,98 @@ routerOfApple.post('/write', (req,res)=>{
 ```
 
 위의 이미지에서 `작성하기` 를 클릭하면 정보가 넘어가게 된다. (이는 pug에서 form 태그로 정보를 넘겨줄 때 적용되는 사항이다.) 이 때 `req.body.name` 부분을 보자. `body는` 우리가 호출할 pug 혹의 html 소스가 웹에 띄워주는 소스를 의미하는데 그중 `name` 이 `price` 인 입력값을 받아온다.
+
+## 7. 정적파일
+
+웹 페이지를 제작할 때 이미지나 css 파일 같은 것들을 서버에 올려야 하는 경우가 있다. 이러한 경우에 원래는 라우팅 설정을 일일히 하여야 하지만 이렇게 되면 이미지가 만약 100개라고 하면 100개의 라우팅을 설정해 줘야 한다. 이런 소스는 낭비가 심하다. 그래서 파일 자체로 접근 할 수 있도록 도와주고 내부에서 접근가능하도록 하는 것이 정적파일이다.</br>
+
+만약 정적파일이 존재하지 않으면 다음과 같은 오류가 발생한다.([소스는 이 링크로 가면 됨](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode/6.1_staticFiles))
+
+![error img](./imgFolder/expressStudyIMG21.png)
+
+이러한 문제를 해결하기 위해서 정적파일을 사용하는 소스를 살펴보자.
+
+**[SOURCE-/index.js]**
+
+```javascript
+//생략
+app.use('/imgURL', express.static('imgFiles'))
+//생략
+```
+
+이 부분만 추가하면 된다. 앞의  그렇게 되면 아래와 같은 결과창이 나온다.
+
+
+![express staticFiles img](./imgFolder/expressStudyIMG22.png)
+
+## 8. Global View Variables
+
+위의 `6. body-parser` 부분에서 웹페이지에서 js 파일(백엔드) 로 가져오는 것을 해 보았다. 그렇다면 서버나 DB 에서 가져온 정보들을 웹페이지에 표시하는 것(백엔드->웹페이지)을 알아보자.</br>
+
+문제상황을 하나 가정해 보자. 만약 로그인 상태를 웹페이지에 표시하고 싶을 때 어떻게 코딩을 해야 할까? 기본적인 방법으로 코딩 해 보자.
+
+**[SOURCE-apple.js]**
+
+```javascript
+//생략
+let loginState = {//로그인 상태를 DB 에서 가져온다고 가정하는 소스
+    isLogin: true,
+    gener: 'man',
+    type: 'admin'
+}
+
+routerOfApple.get('/', (req, res)=>{
+    res.render('applePage',loginState)
+})
+//생략
+```
+
+위의 소스에서 res.render('applePage',loginState) 부분에서 loginState 를 변수로 받지 않을 때는 객체로 보내야 한다. loginState 은 pug 로 보내지는 변수(객체)이다. 밑의 소스를 통해 제대로 전송되었는지 확인해 보자.
+
+**[SOURCE-applePage.pug]**
+
+```pug
+html
+    head
+    body
+        #testBox(style="width : 100px; height : 200px; background-color : red")
+        script.
+            let isLogin=!{isLogin};
+            if(isLogin==true){
+                document.write('로그인 중....')
+            }
+            else{
+                document.write('로그인 상태가 아님')
+            }
+```
+로그인 상태가 만약 `true` 면(`isLogin` 이 `true`) `로그인 중...` 텍스트 출력, 로그인 상태가 `false` 면 `로그인 상태가 아님` 출력한다. 밑의 결과창을 보자.
+
+![send variable js to pug](./imgFolder/expressStudyIMG25.png)
+
+결과창은 제대로 나오는 것을 알 수 있다. 하지만 만약 로그인 정보를 1개의 페이지만 쓰는 것이 아니라 view template 전체에서 사용한다면 밑의 소스처럼 일일히 loginState 을 작성해야 한다.
+
+**[SOURCE-apple.js]**
+
+```javascript
+//생략
+let loginState = {//로그인 상태를 DB 에서 가져온다고 가정하는 소스
+    isLogin: true,
+    gener: 'man',
+    type: 'admin'
+}
+
+routerOfApple.get('/', (req, res)=>{
+    res.render('applePage',loginState)
+})
+
+routerOfApple.get('/write',(req,res)=>{
+    res.render('write/write',loginState)
+})
+
+routerOfApple.get('/write/product', (req,res)=>{
+    res.render('write/product/product',loginState)
+})
+//생략
+```
+
+이러한 코드를 라우터마다 일일히 작성하는 것은 매우 비효율 적이다. 이렇게 모든 탬플릿에서 사용하는 변수들을 전역변수처럼 선언하여 모든 페이지에서 접근할 수 있도록 할 수 있는 방법이 있다.

@@ -9,7 +9,7 @@
 |4|X|14||
 |5|X|15||
 |6|X|16||
-|7|X|17||
+|7|`complete`|17||
 |8||18||
 |9||19||
 |10||20||
@@ -122,3 +122,39 @@ app.get('/', (req,res)=>{
 ```
 
 * `2.` 에 대해 알아보자.
+
+file path 는 말 그대로 extends 할 파일이 존재하는 위치이다. 위의 1. 의 답의 표를 보고 작성하면 된다.
+
+[이를 해결한 소스는 이 링크로 가면 된다.](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode/4.2_viewInheritance)
+
+## QUESTION_8
+
+```javascript
+express.static('/URL', 'filePath') 에서 url 부분 정확히 이해가 안됨
+```
+
+이 링크의 소스에서 index.js 부분을 보면
+
+### 문제상황 1
+
+```javascript
+app.use('/imgURL', express.static('imgFiles'))// 정적파일 설정
+```
+
+위의 소스를 사용하면 아래와 같이 `http://localhost:4000` 에서 이미지가 출력이 안된다.
+
+![error img](./imgFolder/expressStudyIMG24.png)
+
+하지만 `http://localhost:4000/imgURL/expressStudyImg19.png` 로는 들어가 진다.
+
+### 문제상황 2
+
+```javascript
+app.use('/imgFiles', express.static('imgFiles'))// 정적파일 설정
+```
+
+위의 소스를 사용하면 즉 `/URL` 부분과 `filePath` 부분이 일치하면 아래와 같이 `http://localhost:4000` 부분은 출력이 되나 `http://localhost:4000/imgURL/expressStudyImg19.png` 페이지는 출력이 안된다. 왜 그런가?
+
+![error img](./imgFolder/expressStudyIMG23.png)
+
+## ANSWER_8
