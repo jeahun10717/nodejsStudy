@@ -745,4 +745,25 @@ routerOfApple.get('/write/product', (req,res)=>{
 //생략
 ```
 
-이러한 코드를 라우터마다 일일히 작성하는 것은 매우 비효율 적이다. 이렇게 모든 탬플릿에서 사용하는 변수들을 전역변수처럼 선언하여 모든 페이지에서 접근할 수 있도록 할 수 있는 방법이 있다.
+이러한 코드를 라우터마다 일일히 작성하는 것은 매우 비효율 적이다. 이렇게 모든 탬플릿에서 사용하는 변수들을 전역변수처럼 선언하여 모든 페이지에서 접근할 수 있도록 할 수 있는 방법이 있다.</br>
+
+단 여기서 js 파일을 기준으로 그 파일 안에서 설정한 라우터(페이지) 만 접근이 가능한데 이 문제(모든 웹페이지 라우터에서 접근 가능한 변수)는 [question.md](https://github.com/jeahun10717/nodejsStudy/blob/master/expressStudyByFastCampus/question.md) 부분에서 제대로 해결해 볼 것이다.</br>
+
+**[SOURCE-apple.js]**
+
+```javascript
+//생략
+
+routerOfApple.use((req,res,next)=>{//app.use 의 use 도 미들웨어 이다.
+    routerOfApple.locals.isLogin = true;
+    next();
+})
+
+//생략
+```
+
+위의 소스에서 locals 라는 javascript 내장 모듈을 사용하면 그 변수를 js 파일 최상단으로 올릴 수 있다. 결과창은 아래와 같다.
+
+**[BROWSER]**
+
+![global view varialble img](./imgFolder/expressStudyIMG26.png)

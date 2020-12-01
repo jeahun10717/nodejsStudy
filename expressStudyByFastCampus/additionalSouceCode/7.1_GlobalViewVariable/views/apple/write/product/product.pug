@@ -2,3 +2,10 @@ html
     head
     body
         #test this is product page
+        script.
+            if(!{isLogin}==true){
+                document.write('로그인 중...')
+            }
+            else{
+                document.write('로그인 상태가 아님')
+            }

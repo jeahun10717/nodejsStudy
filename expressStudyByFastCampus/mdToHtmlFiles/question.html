@@ -36,7 +36,7 @@
 </thead>
 <tbody><tr>
 <td>1</td>
-<td>X</td>
+<td><code>complete</code></td>
 <td>11</td>
 <td></td>
 </tr>
@@ -78,14 +78,14 @@
 </tr>
 <tr>
 <td>8</td>
-<td>|18</td>
-<td></td>
+<td>X</td>
+<td>18</td>
 <td></td>
 </tr>
 <tr>
 <td>9</td>
-<td>|19</td>
-<td></td>
+<td>X</td>
+<td>19</td>
 <td></td>
 </tr>
 <tr>
@@ -97,8 +97,11 @@
 </tbody></table>
 <hr>
 <h2 id="question_1-module-exports">QUESTION_1 : module.exports</h2>
-<p>module.exports = &#xBCC0;&#xC218; &#xC5D0;&#xC11C; module.exports &#xB294; &#xC5B4;&#xB514;&#xC5D0; &#xBCC0;&#xC218;&#xB97C; &#xBCF4;&#xB0B4;&#xB294; &#xAC70;?</p>
+<p><code>module.exports = &#xBCC0;&#xC218;</code> &#xC5D0;&#xC11C; <code>module.exports</code> &#xB294; &#xC5B4;&#xB514;&#xC5D0; &#xBCC0;&#xC218;&#xB97C; &#xBCF4;&#xB0B4;&#xB294; &#xAC70;?</p>
 <h2 id="answer_1">ANSWER_1</h2>
+<pre><code class="language-javascript">module.exports = app;</code></pre>
+<p>&#xC704;&#xC758; &#xC18C;&#xC18C;&#xB294; <code>app</code> &#xC774;&#xB77C;&#xACE0; &#xD558;&#xB294; &#xBCC0;&#xC218;(&#xAC1D;&#xCCB4;)&#xB97C; <code>module.exports</code> &#xB97C; &#xD1B5;&#xD574; &#xC804;&#xC5ED;&#xAC1D;&#xCCB4;&#xB85C; &#xBCF4;&#xB0B4;&#xAC8C; &#xB41C;&#xB2E4;. &#xC774;&#xB807;&#xAC8C; &#xC804;&#xC5ED;&#xC73C;&#xB85C; &#xBCF4;&#xB0B4;&#xC9C4; &#xAC1D;&#xCCB4;&#xB294; &#xC544;&#xB798;&#xC640; &#xAC19;&#xC740; &#xC18C;&#xC2A4;&#xB85C; &#xD504;&#xB85C;&#xC81D;&#xD2B8; &#xC548;&#xC5D0;&#xC11C; &#xC5B4;&#xB514;&#xC11C;&#xB4E0; &#xC811;&#xADFC;&#xC774; &#xAC00;&#xB2A5;&#xD558;&#xB2E4;.</p>
+<pre><code class="language-javascript">const &#xBCC0;&#xC218; = require(&apos;js&#xD30C;&#xC77C;&#xACBD;&#xB85C;&apos;)</code></pre>
 <hr>
 <h2 id="question_2-const-app-express-">QUESTION_2 : const app = express()</h2>
 <pre><code class="language-javascript">const app = express</code></pre>
@@ -172,6 +175,33 @@
 <p>&#xC704;&#xC758; &#xC18C;&#xC2A4;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xBA74; &#xC989; <code>/URL</code> &#xBD80;&#xBD84;&#xACFC; <code>filePath</code> &#xBD80;&#xBD84;&#xC774; &#xC77C;&#xCE58;&#xD558;&#xBA74; &#xC544;&#xB798;&#xC640; &#xAC19;&#xC774; <code>http://localhost:4000</code> &#xBD80;&#xBD84;&#xC740; &#xCD9C;&#xB825;&#xC774; &#xB418;&#xB098; <code>http://localhost:4000/imgURL/expressStudyImg19.png</code> &#xD398;&#xC774;&#xC9C0;&#xB294; &#xCD9C;&#xB825;&#xC774; &#xC548;&#xB41C;&#xB2E4;. &#xC65C; &#xADF8;&#xB7F0;&#xAC00;?</p>
 <p><img src="./imgFolder/expressStudyIMG23.png" alt="error img"></p>
 <h2 id="answer_8">ANSWER_8</h2>
+<hr>
+<h2 id="question_9">QUESTION_9</h2>
+<h3 id="1-global-view-variables">1. Global View Variables</h3>
+<p>&#xC5EC;&#xAE30; &#xC788;&#xB294; &#xB9C1;&#xD06C;&#xC5D0; &#xC18C;&#xC2A4;&#xAC00; &#xC788;&#xB2E4;. &#xC774; &#xC18C;&#xC2A4;&#xC5D0;&#xC11C; &#xBCC0;&#xC218;&#xB97C; js &#xD30C;&#xC77C;&#xC5D0;&#xC11C; template &#xC73C;&#xB85C; &#xB370;&#xC774;&#xD130;&#xB97C; &#xBCF4;&#xB0BC; &#xB54C; &#xC544;&#xB798;&#xC640; &#xAC19;&#xC774; js &#xD30C;&#xC77C;&#xB9C8;&#xB2E4; &#xBAA8;&#xB450; &#xC124;&#xC815;&#xD574;&#xC57C; &#xD558;&#xB098;?</p>
+<p><strong>[SOURCE-index.js]</strong></p>
+<pre><code class="language-javascript">//&#xC0DD;&#xB7B5;
+
+//******************************
+app.use((req,res,next)=&gt;{
+    app.locals.isLogin=true;
+    next();
+})
+//******************************
+
+//&#xC14D;&#xB7B5;</code></pre>
+<p><strong>[SOURCE-apple.js]</strong></p>
+<pre><code class="language-javascript">//&#xC0DD;&#xB7B5;
+
+routerOfApple.use((req,res,next)=&gt;{
+    routerOfApple.locals.isLogin = true;
+    next();
+})
+
+//&#xC0DD;&#xB7B5;</code></pre>
+<h3 id="2-app-use">2. app.use</h3>
+<p>&#xBBF8;&#xB4E4;&#xC6E8;&#xC5B4; &#xD568;&#xC218;, app.use &#xAC19;&#xC740; &#xBBF8;&#xB4E4;&#xC6E8;&#xC5B4;&#xC758; &#xC2E4;&#xD589;&#xC21C;&#xC11C;?</p>
+<h2 id="answer_9">ANSWER_9</h2>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>

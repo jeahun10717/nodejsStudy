@@ -3,26 +3,34 @@
 
 |Q&A index|해결 여부|Q&A index|해결 여부|
 |---|---|---|---|
-|1|X|11||
+|1|`complete`|11||
 |2|`complete`|12||
 |3|`complete`|13||
 |4|X|14||
 |5|X|15||
 |6|X|16||
 |7|`complete`|17||
-|8||18||
-|9||19||
+|8|X|18||
+|9|X|19||
 |10||20||
 
 ---
 
 ## QUESTION_1 : module.exports
 
-module.exports = 변수 에서 module.exports 는 어디에 변수를 보내는 거?
+`module.exports = 변수` 에서 `module.exports` 는 어디에 변수를 보내는 거?
 
 ## ANSWER_1
 
+```javascript
+module.exports = app;
+```
 
+위의 소소는 `app` 이라고 하는 변수(객체)를 `module.exports` 를 통해 전역객체로 보내게 된다. 이렇게 전역으로 보내진 객체는 아래와 같은 소스로 프로젝트 안에서 어디서든 접근이 가능하다.
+
+```javascript
+const 변수 = require('js파일경로')
+```
 
 ---
 
@@ -158,3 +166,45 @@ app.use('/imgFiles', express.static('imgFiles'))// 정적파일 설정
 ![error img](./imgFolder/expressStudyIMG23.png)
 
 ## ANSWER_8
+
+---
+
+## QUESTION_9
+
+### 1. Global View Variables
+
+여기 있는 링크에 소스가 있다. 이 소스에서 변수를 js 파일에서 template 으로 데이터를 보낼 때 아래와 같이 js 파일마다 모두 설정해야 하나?
+
+**[SOURCE-index.js]**
+
+```javascript
+//생략
+
+//******************************
+app.use((req,res,next)=>{
+    app.locals.isLogin=true;
+    next();
+})
+//******************************
+
+//셍략
+```
+
+**[SOURCE-apple.js]**
+
+```javascript
+//생략
+
+routerOfApple.use((req,res,next)=>{
+    routerOfApple.locals.isLogin = true;
+    next();
+})
+
+//생략
+```
+
+### 2. app.use
+
+미들웨어 함수, app.use 같은 미들웨어의 실행순서?
+
+## ANSWER_9

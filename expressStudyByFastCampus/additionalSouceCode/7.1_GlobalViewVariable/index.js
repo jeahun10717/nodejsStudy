@@ -24,6 +24,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 app.use('/imgFiles', express.static('imgFiles'))// 정적파일 설정
 
+//******************************
+app.use((req,res,next)=>{
+    app.locals.isLogin=true;
+    next();
+})
+//******************************
+
+
 app.get('/' , (req, res)=>{
     res.render('mainPage');
 })
