@@ -1,0 +1,28 @@
+doctype
+html
+    head
+        script(src="https://unpkg.com/axios/dist/axios.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js")
+
+    body
+        input#id(type="text")
+        br
+        input#pw(type="password")
+        button(type='button', onclick="login()") 로그인
+        script.
+            function login(){
+                axios.post('/api/login', {
+                    id: document.querySelector('#id').value,
+                    pw: document.querySelector('#pw').value
+                }).then(res=>{
+                    const { status, sessionKey } = res.data;
+                    
+                    if(status === 200){
+                        //- Cookies.set("sessionKey", sessionKey)
+                        //   ^  서버에서 쿠키설정을 해줄경우 주석 처리 가능
+                        location.href="/"
+                    }
+                }).catch(err=>{
+                    alert("아이디나 페스워드가 잘못됨.")
+                })
+            }

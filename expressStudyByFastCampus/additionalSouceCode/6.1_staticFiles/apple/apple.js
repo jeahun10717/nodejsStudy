@@ -6,7 +6,7 @@ routerOfApple.use(bodyParser.urlencoded({extended : false}))
 
 
 routerOfApple.get('/', (req, res)=>{
-    res.render('applePage', )
+    res.render('applePage')
 })
 
 routerOfApple.get('/write',(req,res)=>{

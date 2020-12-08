@@ -10,8 +10,8 @@
 |5|X|15||
 |6|X|16||
 |7|`complete`|17||
-|8|X|18||
-|9|X|19||
+|8|`complete`|18||
+|9|`complete`|19||
 |10||20||
 
 ---
@@ -167,6 +167,23 @@ app.use('/imgFiles', express.static('imgFiles'))// 정적파일 설정
 
 ## ANSWER_8
 
+`http://localhost:4000` , `http://localhost:4000/imgURL/expressStudyImg19.png` 2개의 링크에서 모두 보이게 하기 위해서는 아래와 같은 소스를 사용하면 된다.
+
+```javascript
+app.use('/imgURL', express.static('imgFiles'))
+```
+
+```pug
+html
+    head
+    body
+        #testBox(style="width : 100px; height : 200px; background-color : aqua")
+        img(src="../../imgURL/expressStudyIMG18.png")
+```
+
+이렇게 작성하면 모든 링크에서 접근이 가능하다.
+app.use 안의 `'/imgURL'` 과 img(src="../../`imgURL`/expressStudyIMG18.png") 안의 `imgURL` 만 맞춰주면 된다.
+
 ---
 
 ## QUESTION_9
@@ -208,3 +225,21 @@ routerOfApple.use((req,res,next)=>{
 미들웨어 함수, app.use 같은 미들웨어의 실행순서?
 
 ## ANSWER_9
+
+```javascript
+app.use(/*use 1*/)
+app.use(/*use 2*/)
+
+function test1(params) {/*내용*/}
+function test2(params) {/*내용*/}
+app.get('/', test1, test2, (req,res,next)=>{//app.get<1>
+    //내용
+})
+app.get('/testLink', test1, (req,res,next)=>{//app.get<2>
+    //내용
+})
+```
+
+위의 함수들의 실행순서는 아래와 같다.
+
+![middleware 실행순서 img](./imgFolder/expressStudyIMG27.png)
