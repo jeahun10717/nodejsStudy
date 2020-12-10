@@ -65,7 +65,7 @@ const app = express();
 
 ---
 
-## QUESTION_4
+## QUESTION_4 : DOM
 
 DOM 구조란?
 
@@ -73,7 +73,7 @@ DOM 구조란?
 
 ---
 
-## QUESTION_5
+## QUESTION_5 : res, req, next
 
 ```javascript
 app.get('/', (req,res)=>{
@@ -88,7 +88,7 @@ app.get('/', (req,res)=>{
 
 ---
 
-## QUESTION_6
+## QUESTION_6 : refused to apply~ 오류 해결
 
 `Refused to apply style MIME type error` 오류 해결방법
 
@@ -102,7 +102,7 @@ app.get('/', (req,res)=>{
 
 ---
 
-## QUESTION_7
+## QUESTION_7 : template 에서 다른 파일 참조
 
 ![express 파일 참조](./imgFolder/expressStudyIMG10.png)
 
@@ -135,7 +135,7 @@ file path 는 말 그대로 extends 할 파일이 존재하는 위치이다. 위
 
 [이를 해결한 소스는 이 링크로 가면 된다.](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode/4.2_viewInheritance)
 
-## QUESTION_8
+## QUESTION_8 : express.static()
 
 ```javascript
 express.static('/URL', 'filePath') 에서 url 부분 정확히 이해가 안됨
@@ -186,9 +186,7 @@ app.use 안의 `'/imgURL'` 과 img(src="../../`imgURL`/expressStudyIMG18.png") �
 
 ---
 
-## QUESTION_9
-
-### 1. Global View Variables
+## QUESTION_9 : fromt to back, back to front data send
 
 여기 있는 링크에 소스가 있다. 이 소스에서 변수를 js 파일에서 template 으로 데이터를 보낼 때 아래와 같이 js 파일마다 모두 설정해야 하나?
 
@@ -220,7 +218,9 @@ routerOfApple.use((req,res,next)=>{
 //생략
 ```
 
-### 2. app.use
+## ANSWER_9
+
+## QUESTION_10 : middleware 실행순서
 
 미들웨어 함수, app.use 같은 미들웨어의 실행순서?
 
