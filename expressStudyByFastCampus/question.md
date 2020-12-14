@@ -1,18 +1,19 @@
 # QUESTION & ANSWER
 * express 공부하면서 나온 질문 외에도 다른 질문도 할거임
 
-|Q&A index|해결 여부|Q&A index|해결 여부|
-|---|---|---|---|
-|1|`complete`|11||
-|2|`complete`|12||
-|3|`complete`|13||
-|4|X|14||
-|5|X|15||
-|6|X|16||
-|7|`complete`|17||
-|8|`complete`|18||
-|9|`complete`|19||
-|10||20||
+|Q&A index|해결 여부|
+|---|---|
+|1. module.exports 관련|`complete`|
+|2. const app = express()|`complete`|
+|3. multi router|`complete`|
+|4. DOM 이란?|X|
+|5. res의 중복사용|X|
+|6. refused to apply~ 오류 해결|X|
+|7. template engine 에서 다른 폴더 참조|`complete`|
+|8. express.static() 사용법|`complete`|
+|9. 웹페이지<-->서버 간 data 전송|`complete`|
+|10. middleWare 실행순서|`complete`|
+|11. asnyc-await none promise error||
 
 ---
 
@@ -37,7 +38,7 @@ const 변수 = require('js파일경로')
 ## QUESTION_2 : const app = express()
 
 ```javascript
-const app = express
+const app = express()
 ```
 
 위의 소스에서 app 에 굳이 저장을 해야 하는 건가? app 에 저장하는 것이 아니라 사용자가 지정한 변수에 저장하면 안됨?
@@ -220,11 +221,13 @@ routerOfApple.use((req,res,next)=>{
 
 ## ANSWER_9
 
+---
+
 ## QUESTION_10 : middleware 실행순서
 
 미들웨어 함수, app.use 같은 미들웨어의 실행순서?
 
-## ANSWER_9
+## ANSWER_10
 
 ```javascript
 app.use(/*use 1*/)
@@ -243,3 +246,181 @@ app.get('/testLink', test1, (req,res,next)=>{//app.get<2>
 위의 함수들의 실행순서는 아래와 같다.
 
 ![middleware 실행순서 img](./imgFolder/expressStudyIMG27.png)
+
+---
+
+## QUESTION_11 : middleware 실행순서
+
+**[SOURCE]**
+
+```javascript
+const firstFunc = function (delayTime) {
+    return setTimeout(function(){
+        console.log('1st function');       
+    }, delayTime);
+}
+const secondFunc = function (delayTime) {
+    return setTimeout(function(){
+        console.log('2nd function');       
+    }, delayTime);
+}
+const thirdFunc = function (delayTime) {
+    return setTimeout(function(){
+        console.log('3rd function');       
+    }, delayTime);
+}
+
+
+
+const asyncFunction = async () => {
+    await firstFunc(1500);
+    await secondFunc(500);
+    await thirdFunc(1000);    
+}
+
+asyncFunction();
+```
+
+**[CONSOLE]**
+
+```
+2nd function
+3rd function
+1st function
+```
+
+위의 소스코드에서 우리가 기대하는 콘솔값은 아래와 같은데 다른 값이 나온다. 그 이유는?
+
+```
+1st function
+2nd function
+3rd function
+```
+
+## ANSWER_11
+
+기본적으로 `async-await` 문 역시 `Promise` 기반으로 작동한다. 즉 `Promise` 에서 `Promise` 를 생성하고 그 `Promise` 를 리턴값으로 받아서 비동기 처리를 하는 그 과정을 `async-await` 이 동일하게 작동한다. 위의 `Qusetion_11` 에서 만들어진 3개의 함수의 리턴값은 `Promise` 가 아니다. 정리해 보자
+
+1. `asnyc-await` 은 그 태생이 `Promise` 에 있으므로 메커니즘 역시 동일하다.
+2. `await` 이 받는 리턴값은 **반드시!!** **`Promise`** 이여야 한다.
+
+즉 아래와 같이 전달하는 함수의 리턴값을 Promise 로 해 주어야 정상적으로 작동한다.
+
+**[SOURCE]**
+
+```javascript
+function firstFunc(sec){
+    return new Promise(function(resolve, reject){
+        setTimeout( function(){
+            console.log('1st function');                   
+            resolve("async는 Promise방식을 사용합니다.");
+        }, sec);
+    });
+}
+function secondFunc(sec){
+    return new Promise(function(resolve, reject){
+        setTimeout( function(){
+            console.log('2nd function');                   
+            resolve("async는 Promise방식을 사용합니다.");
+        }, sec);
+    });
+}
+function thirdFunc(sec){
+    return new Promise(function(resolve, reject){
+        setTimeout( function(){
+            console.log('3rd function');                   
+            resolve("async는 Promise방식을 사용합니다.");
+        }, sec);
+    });
+}
+
+
+
+const asyncFunction = async () => {
+    await firstFunc(1500);
+    await secondFunc(500);
+    await thirdFunc(1000);    
+}
+
+asyncFunction();
+
+// await func1 에서 func1 은 Pomsie 를 반환?
+```
+
+**[CONSOLE]**
+
+```
+1st function
+2nd function
+3rd function
+```
+
+await 을 사용한 소스와 그렇지 않은 소스 간의 실행순서에 대해 알아보자. test 해 볼 소스는 아래와 같다.
+
+**[SOURCE]**
+
+```javascript
+function firstFunc(sec, linenum){
+    return new Promise(function(resolve, reject){
+        setTimeout( function(){
+            console.log(`1st function : ${linenum}`);                   
+            resolve("async는 Promise방식을 사용합니다.");
+        }, sec);
+    });
+}
+
+// secondFunc, thirdFunc 는 위의 소스와 동일하므로 생략
+
+const asyncFunction = async () => {
+    setTimeout(() => console.log('소스상 1 번째 : <1>'), 2600); //<1>
+
+    await firstFunc(1500, '<1-1>')
+    await firstFunc(1000, '<1-2>')
+    await firstFunc(2000, '<1-3>')
+
+    setTimeout(() => console.log('소스상 2 번째 : <2>'), 4100); //<2>
+    setTimeout(() => console.log('소스상 3 번째 : <3>'), 2100); //<3>
+
+    await firstFunc(1500, '<4>');//<4>
+    await secondFunc(500);//<5>
+    await thirdFunc(1000);//<6>    
+
+    setTimeout(() => console.log('소스상 4 번째 : <7>'), 1500);//<7>
+    setTimeout(() => console.log('소스상 5 번째 : <8>'), 500);//<8>
+    setTimeout(() => console.log('소스상 6 번째 : <9>'), 1000);//<9>
+}
+```
+
+**[CONSOLE]**
+
+```
+1st function : <1-1>
+1st function : <1-2>
+소스상 1 번째 : <1>
+1st function : <1-3>
+1st function : <4>
+2nd function : <5>
+소스상 3 번째 : <3>
+3rd function : <6>
+소스상 5 번째 : <8>
+소스상 6 번째 : <9>
+소스상 2 번째 : <2>
+소스상 4 번째 : <7>
+```
+
+위의 소스의 실행 순서는 아래 도식과 같다.
+
+![asyncronous function 실행순서](./imgFolder/expressStudyIMG28.png)
+
+asnyc-await 을 사용할 때 기본적으로 3가지 계층으로 나뉜다.
+
+1. `before await functions 1, 2`
+2. `await functions 1, 2`
+3. `after await functions`
+
+* `1. before await functions`, `2. await functions` 은 비동기적으로 실행이 된다. 하지만 `2. await functions` 은 동기적으로 실행된다.
+* await 함수가 실행되는 도중에는 모든 실행이 중단되며 await 만이 실행된다.
+* `3. after await functions` 부분은 `2. await functions` 들이 종료 된 시점에 실행이 된다.
+
+정리하자면 await 과 일반 함수를 async 안에서 연속으로 사용할 때 `일반함수 - await 함수` 를 한개의 블록으로 생각하면 된다.</br>
+[위에서 사용된 소스는 이 링크에 있다.](https://github.com/jeahun10717/nodejsStudy/tree/master/expressStudyByFastCampus/additionalSouceCode/ansycronousTESTFile.js)
