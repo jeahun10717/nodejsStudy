@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const crypto = require('crypto')
+const crypto = require('crypto');
+const { generateToken } = require('../lib/token')
 
-function hash(password) {//해시처리하는 함수
+function hash(password) {
     return crypto.createHmac('sha256', process.env.SECRET_KEY).update(password).digest('hex');
 }
 
@@ -28,7 +29,6 @@ const Account = new Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-//.static 사용시 this 가 가리키는 것은 모델 자체임
 Account.statics.findByUsername = function(username) {
     // 객체에 내장되어있는 값을 사용 할 때는 객체명.키 이런식으로 쿼리하면 됩니다
     return this.findOne({'profile.username': username}).exec();
@@ -66,6 +66,16 @@ Account.methods.validatePassword = function(password) {
     // 함수로 전달받은 password 의 해시값과, 데이터에 담겨있는 해시값과 비교를 합니다.
     const hashed = hash(password);
     return this.password === hashed;
+};
+
+Account.methods.generateToken = function() {//Token 생성 메소드
+    // JWT 에 담을 내용
+    const payload = {
+        _id: this._id,
+        profile: this.profile
+    };
+
+    return generateToken(payload, 'account');
 };
 
 module.exports = mongoose.model('Account', Account);
