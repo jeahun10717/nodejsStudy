@@ -1,13 +1,14 @@
 {
-  "name": "2.koaprac1",
+  "name": "2.KoaPrac2",
   "version": "1.0.0",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_PATH=src node src",
+    "start:dev": "cross-env NODE_PATH=src nodemon --watch src/ src/index.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
@@ -15,8 +16,6 @@
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
     "mongodb": "^3.6.3",
-    "mongoose": "^5.11.5"
-  },
-  "devDependencies": {},
-  "description": ""
+    "mongoose": "^5.11.8"
+  }
 }
