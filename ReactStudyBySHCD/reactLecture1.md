@@ -6,8 +6,32 @@
 
 ## 1. react 다운, 환경설정
 
-react 를 사용할 때 nodejs 라는 런타임을 사용한다. nodejs 가 제공하는 npm 으로 다운하면 된다.
+`react` 를 사용할 때 `nodejs` 라는 런타임을 사용한다. `nodejs` 가 제공하는 `npm` 으로 다운하면 된다.
+
+### 1.1. package.json, npm 으로 다운
 
 ```
 $ npm install create-react-app -s
 ```
+
+위의 방식으로 다운로드를 진행하면 `npm` 으로 다운을 진행하는 것이고 `node_modules` 에 다운이 된다. `react` 공식 홈페이지에서는 `npx` 로 설치를 권장한다. 실행방법은 아래와 같다.
+
+```
+$ npx create-react-app <폴더이름>
+```
+
+### 1.2. create-react-app
+
+```
+$ create-react-app <폴더이름>
+```
+
+`<폴더 이름>` 은 생략이 가능하고 `<폴더 이름>` 을 적용할 시 `<폴더 이름>` 폴더 안에 `react` 와 관련된 파일들이 작성된다.
+
+### 1.3. global 설치
+
+```
+$ npm install create-react-app -g
+```
+
+`-g` 명령어는 `global` 로 설치를 하라는 명령어 이다. 이렇게 설치를 하게 되면 `pc` 에 존재하는 모든 폴더에서 접근이 가능하다.
