@@ -13,7 +13,7 @@
 |8. express.static() 사용법|`complete`|
 |9. 웹페이지<-->서버 간 data 전송|`complete`|
 |10. middleWare 실행순서|`complete`|
-|11. asnyc-await none promise error||
+|11. 비동기함수 실행순서|`complete`|
 
 ---
 
@@ -27,7 +27,7 @@
 module.exports = app;
 ```
 
-위의 소소는 `app` 이라고 하는 변수(객체)를 `module.exports` 를 통해 전역객체로 보내게 된다. 이렇게 전역으로 보내진 객체는 아래와 같은 소스로 프로젝트 안에서 어디서든 접근이 가능하다.
+위의 소소는 `app` 이라고 하는 변수(객체)를 `module.exports` 를 통해 wrapping 을 하여 객체 형태로 만들어 둔다. 그 후 이 wrapping 된 객체가 필요할 때 아래와 같이 불러와서 사용할 수 있다.
 
 ```javascript
 const 변수 = require('js파일경로')
@@ -249,7 +249,7 @@ app.get('/testLink', test1, (req,res,next)=>{//app.get<2>
 
 ---
 
-## QUESTION_11 : middleware 실행순서
+## QUESTION_11 : asyncronous function 실행순서
 
 **[SOURCE]**
 

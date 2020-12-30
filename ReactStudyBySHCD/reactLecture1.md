@@ -37,7 +37,7 @@ $ npm install create-react-app -g
 `-g` 명령어는 `global` 로 설치를 하라는 명령어 이다. 이렇게 설치를 하게 되면 `pc` 에 존재하는 모든 폴더에서 접근이 가능하다.
 
 
-### 1.4 react 실행
+### 1.4. react 실행
 
 `nodejs` 에서 `npm init` 을 하게 되면 `package.json` 이라는 모듈관리 파일이 생성된다. 여기서 `script` 부분을 편집하여 원하는 터미널 명령어를 사용자화 할 수 있는데 `create-react-app <폴더이름>` 을 했을 때 생기는 `package.json` 파일 안에 아래의 실행 명령어가 들어 있다.
 
@@ -50,7 +50,7 @@ $ npm run start
 
 ![react실행 img](./imgFolder/reactJS_IMG1.png)
 
-### 1.5 js 코드 수정
+### 1.5. js 코드 수정
 
 **[ /src/App.js ]**
 
@@ -92,7 +92,7 @@ class App extends Component {
 export default App;
 ```
 
-### 1.6 css 코드 수정
+### 1.6. css 코드 수정
 
 **[ /src/App.css ]**
 
@@ -104,7 +104,7 @@ body{
 
 위의 디렉토리의 `App.css` 를 수정하면 된다.
 
-### 1.7 React 배포
+### 1.7. React 배포
 
 우리가 create-react-app <폴더이름> 으로 만들어낸 폴더는 그 용량 자체가 지나치게 크다. 또한 브라우저 내에서 네트워크 환경에 들어가서 확인을 해 보면 아무것도 하지 않았는데 1.7 mb 라는 용량을 잡아먹는다. 이는 React 자체에서 지원하는 여러가지 개발도구들이 존재하기 때문인데 이 상태로 그대로 배포하게 되면 웹페이지 성능에 문제가 생긴다. 따라서 우리는 이제 아래와 같은 명령어를 사용하여 업로드 한다.
 
@@ -114,11 +114,11 @@ $ npm run bulid
 
 위의 명령어는 `React` 에서 프로그래머가 사용한 모듈들과 기능들만을 남기고 나머지는 날리는 작업을 한다. 그리고 그 파일과 폴더들을 `build` 라는 폴더에 저장을 하는데 배포할 때 이 build 폴더를 배포하면 된다.
 
-## 2. React
+## 2. React : Component Control
 
 위에서 `React` 를 설치하고 초기설정을 해 보았다. 이제 본격적으로 `React` 를 사용해 보자.
 
-### 2.1 React 를 사용하는 이유
+### 2.1. React 를 사용하는 이유
 
 만약 우리가 아래와 같은 코드가 있다고 가정해보자.
 
@@ -147,7 +147,7 @@ $ npm run bulid
 
 위의 `header` 부분이 만약 엄청나게 길다면? 그리고 그 코드를 자주 많이 사용한다면 어떻게 될까? 코드가 복잡해지고 한 눈에 들어오지도 않을 것이다. 또한 수정사항이 있다면 `header` 부분이 사용된 모든 소스를 찾아서 수정해야 한다. 하지만 이 부분을 태그화 해서 다른 파일에서 접근이 가능하면 소스의 유지보수성과 가독성이 매우 증대된다. 이러한 기능을 지원하는 것이 `React` 의 장점이다.
 
-### 2.2 Component 만들기
+### 2.2. Component 만들기
 
 이제 위의 소스에서 header 부분을 Component 로 만들어보자
 
@@ -243,7 +243,7 @@ export default App;
 
 위의 소스의 `Component` 들이 각각 엄청나게 긴 소스라고 생각해 보자. 이러한 소스들을 이렇게 정리하고 유지보수 할 수 있는 것이 매우매우 효율적이라고 할 수 있다.
 
-### 2.3 props
+### 2.3. props
 
 위에서 기본적인 Component 를 만들어 보았다. 그런데 만약에 일반적인 태그에서 style 이나 src 등 속성을 지원하는 것처럼 내가 만든 Component 에 속성을 줄 수 있다면 어떨까?
 
@@ -342,4 +342,142 @@ class App extends Component {
 
 ![react props control img 2](./imgFolder/reactJS_IMG5.png)
 
-다른 것을 건드리지 않고 `class` 의 `title`, `sub` 만을 바꾸었는데 정상적으로 바뀐 것을 알 수 있다. 
+다른 것을 건드리지 않고 `class` 의 `title`, `sub` 만을 바꾸었는데 정상적으로 바뀐 것을 알 수 있다.
+
+### 2.4. Component 파일 분리
+
+`react` 로 작업을 진행 할 때 `component` 를 만들 떄마다 한 개의 파일 안에 모두 집어 넣으면 읽기도 불편하고 뭔가를 찾아야 할 때 매우 불편할 것이다. 이러한 문제점은 우리가 `모듈화`, 즉 파일을 분리하므로써 관련성 있는 파일들을 따로 모아 관리하면 유지보수가 쉬울 것이다.</br>
+
+**[/src/App.js]**
+커밋 : `React Study By 상활코딩 7 ~ 12 강upload`
+```javascript
+//생략
+class TOC extends Component {
+  render(){
+    return(
+      <nav>
+        <ul>
+          <li><a href="1.html">Html</a></li>
+          <li><a href="2.html">Css</a></li>
+          <li><a href="3.html">JavaScript</a></li>
+        </ul>
+      </nav>
+    );
+  }
+}
+
+class Content extends Component {
+  render(){
+    return(
+      <article>
+        <h2>{this.props.title}</h2>
+        {this.props.desc}
+      </article>   
+    )
+  }
+}
+
+
+class Subject extends Component {
+  render(){
+    return (
+      <header>
+        <h1>{this.props.title}</h1>
+        {this.props.sub}
+      </header>
+    );
+  }
+}
+//생략
+```
+
+현재는 위와 같이 `App.js` 파일 안에 `Subject`, `TOC`, `Content` component 가 모두 들어 있다. 이를 모듈화해서 파일화 해보자.</br>
+
+`/src/component` 라는 폴더 안에 `subject.js`, `TOC.js`, `content.js` 라는 파일을 만들어 각각의 `component` 를 저장할 것이다.
+
+**[ /src/App.js ]**
+
+```javascript
+import React, { Component } from "react";
+import TOC from './components/TOC'          // TOC.js 파일에서 TOC 객체(class) 가져옴
+import Content from './components/content'  // content.js 파일에서 Content 객체(class) 가져옴
+import Subject from './components/subject'; // subject.js 파일에서 Subject 객체(class) 가져옴
+import './App.css';
+
+class App extends Component {
+  render(){
+    return (
+      <div className="App">
+        <Subject title="web" sub="world wide web!"></Subject>
+        <Subject title="Mobile - Android or Apple" sub="텍스트 변경이 가능!!!"></Subject>
+        <TOC></TOC>
+        <Content title="HTML" desc="HTML is HyperText MarkUp Language."></Content>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+**[ /src/component/TOC.js ]**
+
+```javascript
+import React, { Component } from 'react';
+
+class TOC extends Component {
+  render(){
+    return(
+      <nav>
+        <ul>
+          <li><a href="1.html">Html</a></li>
+          <li><a href="2.html">Css</a></li>
+          <li><a href="3.html">JavaScript</a></li>
+        </ul>
+      </nav>
+    );
+  }
+}
+
+export default TOC;  // TOC 객체 외부에서 참조할 수 있게 내보냄
+```
+
+**[ /src/component/content.js ]**
+
+```javascript
+import React, { Component } from 'react';
+
+class Content extends Component {
+    render(){
+    return(
+        <article>
+        <h2>{this.props.title}</h2>
+        {this.props.desc}
+        </article>   
+    )
+    }
+}
+
+export default Content;  // Content 객체 외부에서 참조할 수 있게 내보냄
+```
+
+**[ /src/component/subject.js ]**
+
+```javascript
+import React, { Component } from 'react'
+
+class Subject extends Component {
+    render(){
+      return (
+        <header>
+          <h1>{this.props.title}</h1>
+          {this.props.sub}
+        </header>
+      );
+    }
+  }
+
+export default Subject;  // Subject 객체 외부에서 참조할 수 있게 내보냄
+```
+
+위의 구조대로 코딩하면 정상적으로 작동한다. 소스는
