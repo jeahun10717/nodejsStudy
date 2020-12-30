@@ -1,25 +1,54 @@
-import logo from './logo.svg';
+import React, { Component } from "react";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+class TOC extends Component {
+  render(){
+    return(
+      <nav>
+        <ul>
+          <li><a href="1.html">Html</a></li>
+          <li><a href="2.html">Css</a></li>
+          <li><a href="3.html">JavaScript</a></li>
+        </ul>
+      </nav>
+    );
+  }
+}
+
+class Content extends Component {
+  render(){
+    return(
+      <article>
+        <h2>{this.props.title}</h2>
+        {this.props.desc}
+      </article>   
+    )
+  }
+}
+
+
+class Subject extends Component {
+  render(){
+    return (
+      <header>
+        <h1>{this.props.title}</h1>
+        {this.props.sub}
       </header>
-    </div>
-  );
+    );
+  }
+}
+
+class App extends Component {
+  render(){
+    return (
+      <div className="App">
+        <Subject title="web" sub="world wide web!"></Subject>
+        <Subject title="Mobile - Android or Apple" sub="텍스트 변경이 가능!!!"></Subject>
+        <TOC></TOC>
+        <Content title="HTML" desc="HTML is HyperText MarkUp Language."></Content>
+      </div>
+    );
+  }
 }
 
 export default App;
