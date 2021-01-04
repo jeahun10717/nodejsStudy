@@ -640,3 +640,165 @@ class App extends Component {
 cf : 위의 소스에서 `key` 속성은 `react` 가 제공하는 형식을 맞춰주기 위해 사용하는 소스이다 `key` 를 명시하지 않으면 아래와 같은 오류가 발생한다.
 
 ![none key error message](./imgFolder/reactJS_IMG6.png)
+
+### 2.6. event - props & state
+
+웹페이지에서 이벤트를 컨트롤해서 더욱 다이나믹한 소스를 만들어보자. 아래 페이지에서 `HTML`, `CSS`, `Javascript` 를 각각 클릭하면 동적으로 밑의 소스가 바뀌도록 하는 페이지를 만들어보자.
+
+#### 2.6.1. event 초기단계
+
+![dynamic web event](./imgFolder/reactJS_IMG3.png)
+
+`React` 에서 `state` 값이 변경되면 하위의 `render` 함수가 재호출된다.
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      mode: 'welcome',
+      subject:{title:'WEB', sub:'world wide web'},
+      welcome: {title:'Welcome', desc:'Hello, React!'},
+    //생략
+    }
+  }
+  render(){
+    console.log('App render');
+    let _title, _desc = null;
+    if(this.state.mode === 'welcome'){
+      _title = this.state.welcome.title;
+      _desc = this.state.welcome.desc;
+    }else if(this.state.mode === 'read'){
+      _title = this.state.contents[0].title;
+      _desc = this.state.contents[0].desc;
+    }
+    return (
+      <div className="App">
+        <Subject
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}>
+        </Subject>
+        <TOC data={this.state.contents}></TOC>
+        <Content title={_title} desc={_desc}></Content>
+      </div>
+    );
+  }
+}
+//생략
+```
+
+위의 조건문은 `this.state.mode` 에 따라 `Content` 컴포넌트가 출력하는 텍스트가 달라진다.
+
+**[ mode 가 welcome 일 때 화면 ]**
+
+![this.state.mode==='welcome'](./imgFolder/reactJS_IMG7.png)
+
+이제 빨간 밑줄 친 부분에서 `welcome` 을 `read` 로 바꿔보자.
+
+![this.state.mode==='read'](./imgFolder/reactJS_IMG8.png)
+
+원래의 `Welcome` 과 `Hello`, `React` 가 아닌 `HTML` 과 그 텍스트가 출력됨을 알 수 있다. 위의 과정에서 `welcome` 에서 `read` 로 바꾸는 과정을 수동으로 했다. 이러한 과정을 버튼 입력 혹은 클릭으로 바꿀 수 있다. 아래에서 알아보자.
+
+#### 2.6.2. event - a 태그 클릭 이용
+
+위에서 `event` 를 `react` 개발자 창에서 바꾸는 것을 해 보았다. 이제 `a` 태그를 클릭하여 바꾸는 것을 해 보자.</br>
+
+이벤트를 설정하는 것은 생각이상으로 복잡하므로 `Subject.js` 파일의 `render` 될 태그들을 `App.js` 에 그대로 붙여넣을 것이다.
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+  render(){
+    //생략
+    return (
+      <div className="App">
+        {/* <Subject
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}>
+        </Subject> */}
+        <header>
+          <h1><a href='/' onClick={function(){
+            alert('hi')
+          }}>{this.state.subject.title}</a></h1>
+          {this.state.subject.sub}
+        </header>
+        <TOC data={this.state.contents}></TOC>
+        <Content title={_title} desc={_desc}></Content>
+      </div>
+    );
+  }
+}
+//생략
+```
+
+원래의 `html` 에서 클릭 이벤트 설정은 모두 소문자로 작성하는 `onclick` 이나 **`react` 에서는 `onClick` 으로 설정하여야 한다.(대소문자 구분 주의 !!!)** 위의 소스는 `a` 태그를 클릭하면 `hi` 라는 경고창을 띄워주고 페이지를 `'/'` 로 리로딩한다. 페이지 리로딩 없이 다이나믹 하게 이벤트를 설정하는 것이 목표인데 우리의 목표와 맞지 않다. 리로딩 되는 이유는 위에서 밝혔듯 `a` 태그의 기본 속성 때문인데 이러한 속성을 초기화 해 주면 리로딩 없이 이벤트 설정이 가능하다.
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+  render(){
+    //생략
+    return (
+      <div className="App">
+        {/* <Subject
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}>
+        </Subject> */}
+        <header>
+          <h1><a href='/' onClick={function(e){
+              console.log(e);
+              e.preventDefault; // a 태그 기본 속성 없애기(링크 이동)
+          }}>{this.state.subject.title}</a></h1>
+          {this.state.subject.sub}
+        </header>
+        <TOC data={this.state.contents}></TOC>
+        <Content title={_title} desc={_desc}></Content>
+      </div>
+    );
+  }
+}
+//생략
+```
+
+이제 `this.state.mode` 을 `welcome` 으로 바꾸는 소스를 짜 보자.</br>
+
+아래의 소스에서 bind 를 쓰지 않았을 때 오류가 발생하는데 이 오류에 관해서는 `question 모음-Q&A 2` 에서 해결할 것이다.
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+  render(){
+    //생략
+    return (
+      <div className="App">
+        {/* <Subject
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}>
+        </Subject> */}
+        <header>
+          <h1><a href='/' onClick={function(e){
+              console.log(e);
+              e.preventDefault; // a 태그 기본 속성 없애기(링크 이동)
+              //this.state.mode='welcome' // <= mode 값 안 바뀜
+              this.setState({  // * 이 부분 중요! *
+                mode:'welcome'
+              })
+          }.bind(this)}>{this.state.subject.title}</a></h1>
+          {this.state.subject.sub}
+        </header>
+        <TOC data={this.state.contents}></TOC>
+        <Content title={_title} desc={_desc}></Content>
+      </div>
+    );
+  }
+}
+//생략
+```
+
+위의 중요표시 해 놓은 라인을 보자. 원래의 소스는 그 위의 소스인데 위의 소스는 동작하지 않는다. `state` 를 수정하기 위해서는 `react` 가 제공하는 함수인 `setState` 를 사용하여야 한다. 사용방법은 위의 방법을 참고하라.
