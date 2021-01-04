@@ -7,7 +7,7 @@ class Content extends Component {
         <h2>{this.props.title}</h2>
         {this.props.desc}
         </article>   
-    )
+        )
     }
 }
 

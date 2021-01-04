@@ -277,8 +277,8 @@ class tagName extends Component {
   render(){
     return (
       <tag>
-        {this.props.title}   //여기서 this 는 tagNanme 객체(js 에서 클래스도 객체이므로) 를 가리킴
-        {this.props.sub}     //여기서 this 는 마찬가지로 tagNanme 객체를 가리킴
+        {this.props.title}   //여기서 this 는 tagName 객체(js 에서 클래스도 객체이므로) 를 가리킴
+        {this.props.sub}     //여기서 this 는 마찬가지로 tagName 객체를 가리킴
       </tag>
     );
   }
@@ -480,4 +480,163 @@ class Subject extends Component {
 export default Subject;  // Subject 객체 외부에서 참조할 수 있게 내보냄
 ```
 
-위의 구조대로 코딩하면 정상적으로 작동한다. 소스는
+위의 구조대로 코딩하면 정상적으로 작동한다. 소스는 [commit name : React Study By 생활코딩 14 강 upload](https://github.com/jeahun10717/nodejsStudy/commits/master)을 참조하라
+
+### 2.5. state
+
+`props` 는 함수의 매개변수처럼 컴포넌트에 전달이 가능한 반면 `state` 는 함수 내에 선언된 `let` 처럼 컴포넌트 안에서만 관리가 된다. 이는 **사용자와 프로그래머가 접근 할 수 있는 요소를 분리** 시켜 양쪽의 편의성을 각각 증진시키게 된다. 이는 아래의 내용에서 알아보면서 이해해 보자.
+
+#### 2.5.1. constructor
+
+1. `constructor` 는 `state` 를 사용하기 위해 컴포넌트를 초기화 하는 역할을 담당한다.
+2. `constructor` 는 반드시 `render` 위에 존재해야 한다.(초기화를 담당하기 때문)
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      subject:{title:'WEB', sub:'world wide web'}
+    }
+  }
+  render(){
+    return (
+      <div className="App">
+        <Subject
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}>
+        </Subject>
+        <TOC></TOC>
+        <Content title="HTML" desc="HTML is HyperText MarkUp Language."></Content>
+      </div>
+    );
+  }
+}
+//생략
+```
+
+여기서 `App.js` 의 실행파일인 `index.js` 의 `<App></App>` 태그는 각각의 컴포넌트의 `state` 에 접근이 불가하다. 또한 상위 컴포넌트인 `App` 의 `state` 를 하위 컴포넌트인 `Subject` 의 `props` 로 전달하는 것도 가능한 것을 볼 수 있다.
+
+이러한 state 를 이용하여 기존의 코드를 바꿔보자.
+
+**[ 기존코드 : /src/components/TOC.js ]**
+
+```javascript
+import React, { Component } from 'react';
+
+class TOC extends Component {
+  render(){
+    return(
+      <nav>
+        <ul>
+          <li><a href="1.html">Html</a></li>
+          <li><a href="2.html">Css</a></li>
+          <li><a href="3.html">JavaScript</a></li>
+        </ul>
+      </nav>
+    );
+  }
+}
+
+export default TOC;  // TOC 객체 외부에서 참조할 수 있게 내보냄
+```
+
+**[ 기존코드 : /src/App.js ]**
+
+```javascript
+//생략
+class App extends Component {
+  render(){
+    return (
+      <div className="App">
+        <Subject title="web" sub="world wide web!"></Subject>
+        <Subject title="Mobile - Android or Apple" sub="텍스트 변경이 가능!!!"></Subject>
+        <TOC></TOC>
+        <Content title="HTML" desc="HTML is HyperText MarkUp Language."></Content>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+**[ state 사용 코드 : /src/components/TOC.js ]**
+
+```javascript
+import React, { Component } from 'react';
+
+class TOC extends Component {
+  render(){
+    var lists = [];
+    var data = this.props.data
+    var i = 0;
+    while(i < data.length){
+      lists.push(<li key={data[i].id}>
+                    <a href={"/content/"+data[i].id}>{data[i].title}</a>
+                 </li>)
+      i++;
+    }
+    return(
+      <nav>
+        <ul>
+          {lists}
+        </ul>
+      </nav>
+    );
+  }
+}
+
+export default TOC;
+```
+
+**[ state 사용 코드 : /src/App.js ]**
+
+```javascript
+//생략
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      subject:{title:'WEB', sub:'world wide web'},
+      contents:[
+        {id:1, title:'HTML', desc:'HTML is HyperText ...'},
+        {id:2, title:'CSS', desc:'CSS is for design'},
+        {id:3, title:'JavaScript', desc:'JS is for interactive'}
+      ]
+    }
+  }
+  render(){
+    return (
+      <div className="App">
+        <Subject
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}>
+        </Subject>
+        <TOC data={this.state.contents}></TOC>
+        <Content title="HTML" desc="HTML is HyperText MarkUp Language."></Content>
+      </div>
+    );
+  }
+}
+//생략
+```
+
+**[ state 사용 코드 : /src/App.js ]** 에서 `TOC` 태그에 `data` 라는 `props` 에 `{this.state.contents}` 를 삽입했다. 태그 발견 후 `TOC.js` 가 실행될 것이다.  `TOC.js` 에서는 `TOC` 컴포넌트 안의 `props` 중 `data` 라는 `props` 를 찾으면 기존에 저장해 두었던 아래와 같은 배열이 저장되어 있다.
+
+```javascript
+[
+  {id:1, title:'HTML', desc:'HTML is HyperText ...'},
+  {id:2, title:'CSS', desc:'CSS is for design'},
+  {id:3, title:'JavaScript', desc:'JS is for interactive'}
+]
+```
+
+이 배열의 길이만큼 반복문을 돌아서 **[ 기존코드 : /src/components/TOC.js ]** 에서의 `li` 태그들을 출력한다. 이렇게 되면 TOC 에서 직접 코드를 수정하지 않고 `App.js` 의 `this.state.contents` 배열을 수정하여 `TOC` 의 `data` 를 수정할 수 있게 된다.<br>
+
+cf : 위의 소스에서 `key` 속성은 `react` 가 제공하는 형식을 맞춰주기 위해 사용하는 소스이다 `key` 를 명시하지 않으면 아래와 같은 오류가 발생한다.
+
+![none key error message](./imgFolder/reactJS_IMG6.png)
