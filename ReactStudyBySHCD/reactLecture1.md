@@ -801,4 +801,128 @@ class App extends Component {
 //생략
 ```
 
-위의 중요표시 해 놓은 라인을 보자. 원래의 소스는 그 위의 소스인데 위의 소스는 동작하지 않는다. `state` 를 수정하기 위해서는 `react` 가 제공하는 함수인 `setState` 를 사용하여야 한다. 사용방법은 위의 방법을 참고하라.
+위의 중요표시 해 놓은 라인을 보자. 원래의 소스는 그 위의 소스인데 위의 소스는 동작하지 않는다. `state` 를 수정하기 위해서는 `react` 가 제공하는 메소드인 `setState` 를 사용하여야 한다. 사용방법은 위의 방법을 참고하라.
+
+#### 2.6.3. bind : 이벤트 처리
+
+위의 이벤트를 이해하기 위해 bind 에 대해 간략히 예제를 보면서 알아보자.
+
+**[ test.js ]**
+
+```javascript
+const obj = {name : 'jeahun'}
+
+function bindtest() {
+    console.log(this.name);
+}
+
+bindtest();
+```
+
+**[ CONSOLE ]**
+
+```
+undefined
+```
+
+위의 소스에서 우리가 기대하는 값은 bindtest 함수에서의 this 가 obj 를 가리키는 것이다. 이를 해결하기 위해서는 아래와 같은 소스를 사용하면 된다.
+
+**[ test.js ]**
+
+```javascript
+const obj = {name : 'jeahun'}
+
+function bindtest() {
+    console.log(this.name);
+}
+
+bindtest2=bindtest.bind(obj)
+
+bindtest2();
+```
+
+위의 bind 라는 함수르 해결이 가능하다. 이러한 bind 에 관한 자세한 사항은 이  [이 링크]() 에 들어가서 확인하라
+
+#### 2.6.4. setState 사용이유
+
+state 를 수정할 때 우리는 setState 라는 함수를 사용했다. 이러한 함수를 사용해야 하는 간략한 이유를 알아보자.
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+  render(){
+    //생략
+    return (
+      <div className="App">
+        <header>
+          <h1><a href='/' onClick={function(e){
+              console.log(e);
+              e.preventDefault; // a 태그 기본 속성 없애기(링크 이동)
+              this.state.mode='welcome'
+          }}>{this.state.subject.title}</a></h1>
+          {this.state.subject.sub}
+        </header>
+        <TOC data={this.state.contents}></TOC>
+        <Content title={_title} desc={_desc}></Content>
+      </div>
+    );
+  }
+}
+//생략
+```
+
+위의 소스를 실행하게 되면 **react 는 이를 받아들이지 못한다**. 페이지를 리로딩해 보면 `state` 의 값이 정상적으로 바뀌는 것을 알 수 있다. 이것은 react 가 정해놓은 규칙이므로 코딩할 때 주의를 기울여야 한다.
+
+#### 2.6.5. component 이벤트 만들기
+
+이제 위에서 이벤트를 생성하는 방법을 알아보았다. 이제 파일을 분리하여 컴포넌트 이벤트를 만들어 어디서든 접근하여 이벤트를 사용할 수 있도록 만들어보자.
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+class App extends Component {
+  //생략
+  render(){
+    //생략
+    return (
+      <div className="App">
+        <Subject
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}
+          onChangePage={function(){// onChangePage 에서 밑에 있는 함수를 선언
+            alert('hi???')         // 실행문은 존재하지 않는다.
+          }.bind(this)}            // 실행은 subject.js
+        >
+        </Subject>
+        //생략
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+**[ /scr/component/subject.js ]**
+
+```javascript
+//생략
+class Subject extends Component {
+    render(){
+      return (
+        <header>
+          <h1><a href='/' onClick={function(e){
+            e.preventDefault();
+            this.props.onChangePage()//onChangePage props 를 위한 설정
+                                     //여기서 onChangePage 실행
+          }.bind(this)}>{this.props.title}</a></h1>;//title props 를 위한 설정
+          {this.props.sub}//sub props 를 위한 설정
+        </header>
+      );
+    }
+  }
+
+export default Subject;
+```
