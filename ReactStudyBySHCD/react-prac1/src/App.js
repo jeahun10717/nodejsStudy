@@ -35,10 +35,22 @@ class App extends Component {
           sub={this.state.subject.sub}
           onChangePage={function(){
             alert('hi???')
+            this.setState({
+              mode:'welcome'
+            })
           }.bind(this)}
         >
         </Subject>
-        <TOC data={this.state.contents}></TOC>
+        <TOC data={this.state.contents}
+             onChangePage={function () {
+              alert(`hi`);
+              this.setState({
+                mode:'read'
+              })
+             }.bind(this)}
+        >
+
+        </TOC>
         <Content title={_title} desc={_desc}></Content>
       </div>
     );

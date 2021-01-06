@@ -926,3 +926,5 @@ class Subject extends Component {
 
 export default Subject;
 ```
+
+설명은 위의 주석으로 대신한다.
