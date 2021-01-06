@@ -687,6 +687,7 @@ class App extends Component {
           sub={this.state.subject.sub}
           onChangePage={function(){// onChangePage &#xC5D0;&#xC11C; &#xBC11;&#xC5D0; &#xC788;&#xB294; &#xD568;&#xC218;&#xB97C; &#xC120;&#xC5B8;
             alert(&apos;hi???&apos;)         // &#xC2E4;&#xD589;&#xBB38;&#xC740; &#xC874;&#xC7AC;&#xD558;&#xC9C0; &#xC54A;&#xB294;&#xB2E4;.
+            this.setState({mode: &apos;welcome&apos;})
           }.bind(this)}            // &#xC2E4;&#xD589;&#xC740; subject.js
         &gt;
         &lt;/Subject&gt;
@@ -716,6 +717,142 @@ class Subject extends Component {
 
 export default Subject;</code></pre>
 <p>&#xC124;&#xBA85;&#xC740; &#xC704;&#xC758; &#xC8FC;&#xC11D;&#xC73C;&#xB85C; &#xB300;&#xC2E0;&#xD55C;&#xB2E4;.</p>
+<h4 id="2-6-6-component-2">2.6.6. component &#xC774;&#xBC88;&#xD2B8; &#xB9CC;&#xB4E4;&#xAE30; 2</h4>
+<p>&#xC704;&#xC758; <code>2.6.5.</code> &#xC5D0;&#xC11C;&#xB294; &#xC544;&#xB798; &#xC774;&#xBBF8;&#xC9C0;&#xC5D0;&#xC11C; <code>WEB</code> &#xB9C1;&#xD06C;&#xB97C; &#xD074;&#xB9AD;&#xD558;&#xBA74; <code>state.mode</code> &#xAC00; <code>welcome</code> &#xC73C;&#xB85C; &#xBC14;&#xB00C;&#xB294; &#xC18C;&#xC2A4;&#xB97C; &#xC791;&#xC131;&#xD588;&#xB2E4;. &#xC774;&#xC81C; <code>HTML</code>, <code>CSS</code>, <code>JavaScript</code> &#xB97C; &#xD074;&#xB9AD;&#xD558;&#xBA74; <code>state.mode</code> &#xAC00; <code>read</code> &#xB85C; &#xBC14;&#xB00C;&#xB294; &#xC18C;&#xC2A4;&#xB97C; &#xB9CC;&#xB4E4;&#xC5B4; &#xBCF4;&#xC790;.</p>
+<p><strong>[ /src/components/TOC.js ]</strong></p>
+<pre><code class="language-javascript">//&#xC0DD;&#xB7B5;
+class TOC extends Component {
+  render(){
+// &#xC0DD;&#xB7B5;
+  lists.push(&lt;li key={data[i].id}&gt;
+              &lt;a href={&quot;/content/&quot;+data[i].id}
+                 onClick={function (e) {
+                   e.preventDefault();        // a &#xD0DC;&#xADF8; &#xB9C1;&#xD06C;&#xC774;&#xB3D9; &#xC18D;&#xC131; &#xC0AD;&#xC81C;
+                   this.props.onChangePage(); // onChangePage &#xD568;&#xC218;&#xB97C; &#xC4F0;&#xAE30; &#xC704;&#xD55C; &#xC124;&#xC815;
+                 }.bind(this)}
+              &gt;{data[i].title}&lt;/a&gt;
+             &lt;/li&gt;)
+      i++;
+    }
+//&#xC0DD;&#xB7B5;
+  }
+}
+//&#xC0DD;&#xB7B5;</code></pre>
+<p><strong>[ /src/App.js ]</strong></p>
+<pre><code class="language-javascript">//&#xC0DD;&#xB7B5;
+
+class App extends Component {
+  //&#xC0DD;&#xB7B5;
+  render(){
+  // &#xC0DD;&#xB7B5;
+    return (
+      &lt;div className=&quot;App&quot;&gt;
+      // &#xC0DD;&#xB7B5;
+          &lt;TOC data={this.state.contents}
+             onChangePage={function () { //TOC.js &#xC5D0;&#xC11C; props &#xB85C; &#xC124;&#xC815;&#xD574;&#xB454; &#xD568;&#xC218; &#xC0AC;&#xC6A9;
+              alert(`hi`);
+              this.setState({ //state.mode &#xC758; &#xAC11;&#xC744; read &#xB85C; &#xBC14;&#xAFC8;
+                mode:&apos;read&apos;
+              })
+             }.bind(this)}
+        &gt;
+
+        &lt;/TOC&gt;
+        &lt;Content title={_title} desc={_desc}&gt;&lt;/Content&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default App;</code></pre>
+<h4 id="2-6-7-component-3">2.6.7. component &#xC774;&#xBCA4;&#xD2B8; &#xB9CC;&#xB4E4;&#xAE30; 3</h4>
+<p>&#xC704;&#xC758; <code>2.6.5.</code> , <code>2.6.6.</code> &#xC5D0;&#xC11C; <code>WEB</code> &#xC744; &#xB204;&#xB974;&#xBA74; <code>state.mode</code> &#xB97C; <code>welcome</code> &#xC73C;&#xB85C;, <code>HTML, CSS, JavaScript</code> &#xB97C; &#xB204;&#xB974;&#xBA74; <code>state.mode</code> &#xB97C; <code>read</code> &#xB85C; &#xBC14;&#xAFB8;&#xB294; &#xAC83;&#xC744; &#xAD6C;&#xD604; &#xD574; &#xBCF4;&#xC558;&#xB2E4;. &#xC774;&#xC81C; <code>HTML</code>, <code>CSS</code>, <code>JavaScript</code> &#xB97C; &#xB20C;&#xB800;&#xC744; &#xB54C; &#xAC01;&#xAC01;&#xC758; &#xD574;&#xB2F9;&#xD558;&#xB294; &#xD14D;&#xC2A4;&#xD2B8;&#xAC00; <code>Contents</code> &#xBD80;&#xBD84;&#xC5D0; &#xCD9C;&#xB825;&#xB418;&#xB3C4;&#xB85D; &#xD574; &#xBCF4;&#xC790;.</p>
+<p><strong>[ /src/component/TOC.js ]</strong></p>
+<pre><code class="language-javascript">//&#xC0DD;&#xB7B5;
+class TOC extends Component {
+  render(){
+    var lists = [];
+    var data = this.props.data;
+    var i = 0;
+    while(i &lt; data.length){
+      lists.push(&lt;li key={data[i].id}&gt;
+                  &lt;a href={&quot;/content/&quot;+data[i].id}
+                    data-id={data[i].id}  // &lt;1&gt;
+                    onClick={function (e) {
+                      e.preventDefault();
+                      this.props.onChangePage(e.target.dataset.id);  // &lt;2&gt;
+                    }.bind(this)}
+                  &gt;{data[i].title}&lt;/a&gt;
+                 &lt;/li&gt;)
+      i++;
+    }
+    return(/*&#xC0DD;&#xB7B5;*/)
+  }
+}
+//&#xC0DD;&#xB7B5;</code></pre>
+<ol>
+<li><code>&lt;1&gt;</code> &#xC5D0;&#xC11C; <code>e</code> &#xAC1D;&#xCCB4; &#xC758; &#xD558;&#xC704;&#xAC1D;&#xCCB4;&#xC778; <code>e.target</code> &#xC740; &#xD604;&#xC7AC; &#xC774; &#xC18C;&#xC2A4;&#xC5D0;&#xC11C; <code>a</code> &#xD0DC;&#xADF8;&#xB97C; &#xAC00;&#xB9AC;&#xD0A4;&#xACE0; &#xC788;&#xB2E4;.</li>
+<li><code>e</code> &#xAC1D;&#xCCB4;&#xB294; &#xBC11;&#xC758; &#xC774;&#xBBF8;&#xC9C0;&#xC640; &#xAC19;&#xC774; &#xC5EC;&#xB7EC;&#xAC00;&#xC9C0; &#xD558;&#xC704; &#xAC1D;&#xCCB4;&#xB97C; &#xC9C0;&#xB2C8;&#xB294;&#xB370; <code>data-id</code> &#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xAC8C; &#xB418;&#xBA74; <code>e.target.dataset</code> &#xC758; &#xD558;&#xC704;&#xAC1D;&#xCCB4;&#xB85C; <code>id</code> &#xAC00; &#xB4E4;&#xC5B4;&#xAC8C; &#xB41C;&#xB2E4;. &#xC989; <code>e.target.dataset.id</code> &#xC758; &#xAC12;&#xC5D0; &#xC811;&#xADFC;&#xC774; &#xAC00;&#xB2A5;&#xD558;&#xAC8C; &#xB9CC;&#xB4E4; &#xC218; &#xC788;&#xB2E4;. &#xB9CC;&#xC57D; <code>data-id</code> &#xAC00; &#xC544;&#xB2C8;&#xB77C; <code>data-jeahun</code> &#xC73C;&#xB85C; &#xD558;&#xBA74; <code>e.target.dataset.jeahun</code> &#xC758; &#xAC12;&#xC744; &#xBCFC; &#xC218; &#xC788;&#xB2E4;.</li>
+<li>&#xD604;&#xC7AC; &#xC704;&#xC758; <code>{ data[i].id }</code> &#xB294; <code>App.js</code> &#xD30C;&#xC77C;&#xC5D0;&#xC11C; &#xC800;&#xC7A5;&#xB418;&#xC5B4; &#xC788;&#xB294; <code>state.contents[]</code> &#xBC30;&#xC5F4;&#xC758; <code>id</code> &#xAC12;&#xC774;&#xB2E4;.</li>
+<li><code>&lt;2&gt;</code> &#xC5D0;&#xC11C; &#xCC98;&#xB7FC; <code>data-id</code> &#xB85C; &#xC800;&#xC7A5;&#xB41C; &#xAC12;&#xC744; <code>e.target.dataset.id</code> &#xB85C; &#xAC00;&#xC838;&#xC640;&#xC11C; &#xB9E4;&#xAC1C;&#xBCC0;&#xC218;&#xB85C; &#xB118;&#xACA8;&#xC8FC;&#xBA74; <code>App.js</code> &#xC5D0;&#xC11C; <code>onChangePage</code> &#xD568;&#xC218;&#xB97C; &#xC815;&#xC758;&#xD558;&#xB294; &#xBD80;&#xBD84;&#xC5D0;&#xC11C; <code>setState</code> &#xBD80;&#xBD84;&#xC5D0;&#xC11C; &#xC870;&#xC815;&#xD558;&#xBA74; &#xB41C;&#xB2E4;.</li>
+</ol>
+<p><strong>[ /src/App.js ]</strong></p>
+<pre><code class="language-javascript">//&#xC0DD;&#xB7B5;
+
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      mode: &apos;welcome&apos;,
+      selected_content_id : 2,
+      subject:{title:&apos;WEB&apos;, sub:&apos;world wide web&apos;},
+      welcome: {title:&apos;Welcome&apos;, desc:&apos;Hello, React!&apos;},
+      contents:[/*&#xC0DD;&#xB7B5;*/]
+    }
+  }
+  render(){
+    console.log(&apos;&#xC2E4;&#xD589; &#xC21C;&#xC11C; : App.js&apos;);
+    let _title, _desc = null;
+    if(this.state.mode === &apos;welcome&apos;){
+      //&#xC0DD;&#xB7B5;
+    }else if(this.state.mode === &apos;read&apos;){
+      let i = 0;
+      while(i &lt; this.state.contents.length){
+        let data = this.state.contents[i];
+        if(data.id===this.state.selected_content_id){
+          //this.state.contents[i] &#xAC00; selected_content_id &#xC640; &#xAC19;&#xC744; &#xB54C;
+          _title = data.title;
+          _desc = data.desc;   
+          break;
+        }
+        i++;
+      }
+    }
+    return (
+      &lt;div className=&quot;App&quot;&gt;
+        &lt;Subject /*&#xC0DD;&#xB7B5;*/&gt;
+        &lt;/Subject&gt;
+        &lt;TOC data={this.state.contents} // &lt;3&gt;
+             onChangePage={function (id) {
+              this.setState({
+                mode:&apos;read&apos;,
+                selected_content_id:Number(id)
+              })
+             }.bind(this)}
+        &gt;
+        &lt;/TOC&gt;
+        &lt;Content title={_title} desc={_desc}&gt;&lt;/Content&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default App;</code></pre>
+<ol>
+<li><code>&lt;3&gt;</code> &#xC758; <code>id</code> &#xB294; &#xC704;&#xC758; <code>TOC.js</code> &#xC5D0;&#xC11C; &#xC778;&#xC790;&#xB85C; &#xB118;&#xACA8;&#xBC1B;&#xC744; <code>e.target.dataset.id</code> &#xAC12;&#xC774;&#xB2E4;.</li>
+<li>&#xC774;&#xC81C; <code>App.js</code> &#xC5D0;&#xC11C; &#xC120;&#xC5B8;&#xD55C; <code>onChangePage</code> &#xD568;&#xC218;&#xC758; <code>setState</code> &#xAE30;&#xB2A5;&#xC778; <code>selected_content_id</code> &#xB97C; &#xBC14;&#xAFB8;&#xB294; &#xC791;&#xC5C5;&#xC744; <code>TOC.js</code> &#xC5D0;&#xC11C; <code>onChangePage(e.target.dataset.id)</code> &#xB97C; &#xC0AC;&#xC6A9;&#xD55C;&#xB2E4;.</li>
+<li>&#xC774;&#xB807;&#xAC8C; &#xB418;&#xBA74; <code>state</code> &#xAC00; &#xC218;&#xC815;&#xC774; &#xB418;&#xACE0; &#xC218;&#xC815;&#xB41C; <code>state</code> &#xAC00; &#xC120;&#xC5B8;&#xB41C; &#xCEF4;&#xD3EC;&#xB10C;&#xD2B8;&#xC778; <code>App</code> &#xC774; &#xC7AC;&#xC2E4;&#xD589;&#xB418;&#xACE0; &#xBAA8;&#xB4E0; &#xD568;&#xC218;&#xAC00; &#xB2E4;&#xC2DC; &#xC2E4;&#xD589;&#xB418;&#xBA74;&#xC11C; <code>Contents</code> &#xC758; <code>title</code>, <code>desc</code> &#xAC12;&#xC774; &#xBC14;&#xB00C;&#xAC8C; &#xB41C;&#xB2E4;.</li>
+</ol>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>

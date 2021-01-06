@@ -893,6 +893,7 @@ class App extends Component {
           sub={this.state.subject.sub}
           onChangePage={function(){// onChangePage 에서 밑에 있는 함수를 선언
             alert('hi???')         // 실행문은 존재하지 않는다.
+            this.setState({mode: 'welcome'})
           }.bind(this)}            // 실행은 subject.js
         >
         </Subject>
@@ -928,3 +929,156 @@ export default Subject;
 ```
 
 설명은 위의 주석으로 대신한다.
+
+#### 2.6.6. component 이번트 만들기 2
+
+위의 `2.6.5.` 에서는 아래 이미지에서 `WEB` 링크를 클릭하면 `state.mode` 가 `welcome` 으로 바뀌는 소스를 작성했다. 이제 `HTML`, `CSS`, `JavaScript` 를 클릭하면 `state.mode` 가 `read` 로 바뀌는 소스를 만들어 보자.
+
+**[ /src/components/TOC.js ]**
+
+```javascript
+//생략
+class TOC extends Component {
+  render(){
+// 생략
+  lists.push(<li key={data[i].id}>
+              <a href={"/content/"+data[i].id}
+                 onClick={function (e) {
+                   e.preventDefault();        // a 태그 링크이동 속성 삭제
+                   this.props.onChangePage(); // onChangePage 함수를 쓰기 위한 설정
+                 }.bind(this)}
+              >{data[i].title}</a>
+             </li>)
+      i++;
+    }
+//생략
+  }
+}
+//생략
+```
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+
+class App extends Component {
+  //생략
+  render(){
+  // 생략
+    return (
+      <div className="App">
+      // 생략
+          <TOC data={this.state.contents}
+             onChangePage={function () { //TOC.js 에서 props 로 설정해둔 함수 사용
+              alert(`hi`);
+              this.setState({ //state.mode 의 갑을 read 로 바꿈
+                mode:'read'
+              })
+             }.bind(this)}
+        >
+
+        </TOC>
+        <Content title={_title} desc={_desc}></Content>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+#### 2.6.7. component 이벤트 만들기 3
+
+위의 `2.6.5.` , `2.6.6.` 에서 `WEB` 을 누르면 `state.mode` 를 `welcome` 으로, `HTML, CSS, JavaScript` 를 누르면 `state.mode` 를 `read` 로 바꾸는 것을 구현 해 보았다. 이제 `HTML`, `CSS`, `JavaScript` 를 눌렀을 때 각각의 해당하는 텍스트가 `Contents` 부분에 출력되도록 해 보자.
+
+**[ /src/component/TOC.js ]**
+
+```javascript
+//생략
+class TOC extends Component {
+  render(){
+    var lists = [];
+    var data = this.props.data;
+    var i = 0;
+    while(i < data.length){
+      lists.push(<li key={data[i].id}>
+                  <a href={"/content/"+data[i].id}
+                    data-id={data[i].id}  // <1>
+                    onClick={function (e) {
+                      e.preventDefault();
+                      this.props.onChangePage(e.target.dataset.id);  // <2>
+                    }.bind(this)}
+                  >{data[i].title}</a>
+                 </li>)
+      i++;
+    }
+    return(/*생략*/)
+  }
+}
+//생략
+```
+1. `<1>` 에서 `e` 객체 의 하위객체인 `e.target` 은 현재 이 소스에서 `a` 태그를 가리키고 있다.
+2. `e` 객체는 밑의 이미지와 같이 여러가지 하위 객체를 지니는데 `data-id` 를 사용하게 되면 `e.target.dataset` 의 하위객체로 `id` 가 들어게 된다. 즉 `e.target.dataset.id` 의 값에 접근이 가능하게 만들 수 있다. 만약 `data-id` 가 아니라 `data-jeahun` 으로 하면 `e.target.dataset.jeahun` 의 값을 볼 수 있다.
+3. 현재 위의 `{ data[i].id }` 는 `App.js` 파일에서 저장되어 있는 `state.contents[]` 배열의 `id` 값이다.
+4. `<2>` 에서 처럼 `data-id` 로 저장된 값을 `e.target.dataset.id` 로 가져와서 매개변수로 넘겨주면 `App.js` 에서 `onChangePage` 함수를 정의하는 부분에서 `setState` 부분에서 조정하면 된다.
+
+**[ /src/App.js ]**
+
+```javascript
+//생략
+
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      mode: 'welcome',
+      selected_content_id : 2,
+      subject:{title:'WEB', sub:'world wide web'},
+      welcome: {title:'Welcome', desc:'Hello, React!'},
+      contents:[/*생략*/]
+    }
+  }
+  render(){
+    console.log('실행 순서 : App.js');
+    let _title, _desc = null;
+    if(this.state.mode === 'welcome'){
+      //생략
+    }else if(this.state.mode === 'read'){
+      let i = 0;
+      while(i < this.state.contents.length){
+        let data = this.state.contents[i];
+        if(data.id===this.state.selected_content_id){
+          //this.state.contents[i] 가 selected_content_id 와 같을 때
+          _title = data.title;
+          _desc = data.desc;   
+          break;
+        }
+        i++;
+      }
+    }
+    return (
+      <div className="App">
+        <Subject /*생략*/>
+        </Subject>
+        <TOC data={this.state.contents} // <3>
+             onChangePage={function (id) {
+              this.setState({
+                mode:'read',
+                selected_content_id:Number(id)
+              })
+             }.bind(this)}
+        >
+        </TOC>
+        <Content title={_title} desc={_desc}></Content>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+1. `<3>` 의 `id` 는 위의 `TOC.js` 에서 인자로 넘겨받을 `e.target.dataset.id` 값이다.
+2. 이제 `App.js` 에서 선언한 `onChangePage` 함수의 `setState` 기능인 `selected_content_id` 를 바꾸는 작업을 `TOC.js` 에서 `onChangePage(e.target.dataset.id)` 를 사용한다.
+3. 이렇게 되면 `state` 가 수정이 되고 수정된 `state` 가 선언된 컴포넌트인 `App` 이 재실행되고 모든 함수가 다시 실행되면서 `Contents` 의 `title`, `desc` 값이 바뀌게 된다.
